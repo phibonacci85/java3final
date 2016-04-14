@@ -30,9 +30,6 @@ public class ProfileHandler extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Profile profile = new Profile();
-        request.setAttribute("profile", profile);
-        
         request.getRequestDispatcher("profile.jsp").forward(request, response);
     }
 
