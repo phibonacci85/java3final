@@ -13,5 +13,4 @@ package insurance.model;
 public class User {
     String firstName = null;
     String lastName = null;
-    
 }

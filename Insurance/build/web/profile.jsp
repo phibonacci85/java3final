@@ -23,8 +23,8 @@
             </div>
             <div class="top-bar-right">
                 <ul class="menu">
-                    <li><a href="LoginHandler">Home</a></li>
                     <li><a href="ProfileHandler">Profile</a></li>
+                    <li><a href="LoginHandler">Login</a></li>
                     <li><a href="LogoutHandler">Logout</a></li>
                 </ul>
             </div>
