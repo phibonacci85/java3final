@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package insurance.handler;
+package insurance.logic;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author nh228u22
  */
-@WebServlet(name = "IndexHandler", urlPatterns = {"/IndexHandler"})
-public class IndexHandler extends HttpServlet {
+@WebServlet(name = "RequestHandler", urlPatterns = {"/RequestHandler"})
+public class RequestHandler extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,7 +32,29 @@ public class IndexHandler extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        String nextLocation = null;
+
+        String nextLocationText = request.getParameter("task");
+
+        switch (nextLocationText) {
+            case "login":
+                nextLocation = "/login.jsp";
+                break;
+            case "home":
+                nextLocation = "/index.jsp";
+                break;
+            case "profile":
+                nextLocation = "/profile.jsp";
+                break;
+            default:
+                nextLocation = "/index.jsp";
+        }
+        
+        //ExampleThing thing = new ExampleThing();
+        //request.setAttribute("thing", thing);
+
+        // Redirect things back to the JSP specified in the switch statement
+        request.getRequestDispatcher(nextLocation).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

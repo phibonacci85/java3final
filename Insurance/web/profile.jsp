@@ -23,9 +23,10 @@
             </div>
             <div class="top-bar-right">
                 <ul class="menu">
-                    <li><a href="ProfileHandler">Profile</a></li>
-                    <li><a href="LoginHandler">Login</a></li>
-                    <li><a href="LogoutHandler">Logout</a></li>
+                    <li><a href="RequestHandler?task=home">Home</a></li>
+                    <li><a href="RequestHandler?task=profile">Profile</a></li>
+                    <li><a href="RequestHandler?task=login">Login</a></li>
+                    <li><a href="RequestHandler?task=logout">Logout</a></li>
                 </ul>
             </div>
         </div>

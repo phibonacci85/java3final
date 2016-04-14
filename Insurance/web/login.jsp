@@ -17,7 +17,7 @@
     <body>
         <div id="main" class="row">
             <div class="medium-4 medium-centered columns border">
-                <form action="IndexHandler" method="post">
+                <form action="RequestHandler?task=home" method="post">
                     <div class="row">
                         <div class="medium-12 columns">
                             <h3 class="center text">Insurance Login</h3>
