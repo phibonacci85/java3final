@@ -13,9 +13,9 @@ import java.util.Date;
  * @author nh228u27
  */
 public class Violation {
-    ViolationType type = null;
-    Date dateOccured = null;
-    Date convictionDate = null;
+    private ViolationType type = null;
+    private Date dateOccured = null;
+    private Date convictionDate = null;
     
     public double ViolationSurchargePoints(ViolationType type){
         switch(type){
@@ -44,5 +44,47 @@ public class Violation {
                 
         }
         return 0.0;
+    }
+
+    /**
+     * @return the type
+     */
+    public ViolationType getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(ViolationType type) {
+        this.type = type;
+    }
+
+    /**
+     * @return the dateOccured
+     */
+    public Date getDateOccured() {
+        return dateOccured;
+    }
+
+    /**
+     * @param dateOccured the dateOccured to set
+     */
+    public void setDateOccured(Date dateOccured) {
+        this.dateOccured = dateOccured;
+    }
+
+    /**
+     * @return the convictionDate
+     */
+    public Date getConvictionDate() {
+        return convictionDate;
+    }
+
+    /**
+     * @param convictionDate the convictionDate to set
+     */
+    public void setConvictionDate(Date convictionDate) {
+        this.convictionDate = convictionDate;
     }
 }
