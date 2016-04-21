@@ -22,109 +22,63 @@ CREATE DATABASE  J3Project2;
 ******************************************************************************/
 USE J3Project2;
 
-/******************************************************************************
-	create user
-******************************************************************************/
-
-/*CREATE USER siteloginuser IDENTIFIED BY 'siteloginpassword';
-
-
-/******************************************************************************
-	TABLE: Accident
-******************************************************************************/
-
-CREATE TABLE Accident(
-
-AccidentType VARCHAR(40) null,
-AccidentDate DATE null,
-AtFault		 BOOLEAN null 
-
-
-
-);
-
-/******************************************************************************
-	TABLE: Coverage
-******************************************************************************/
-
-CREATE TABLE Coverage (
-
-CoverageType	VARCHAR(60) null,
-biStateMinimum	VARCHAR(20) null,
-pdStateMinimum	INT DEFAULT 25 ,
-MedPayOptions	INT null,
-DeductibleOptions VARCHAR(20)
-
-); 
-
 
 /******************************************************************************
 	TABLE: Driver
 ******************************************************************************/
 
 CREATE TABLE Driver (
-
-Fname			VARCHAR(40) null,
-Lname			VARCHAR(40) null,
-LicenseNumber	VARCHAR(40) null,
-Violations		VARCHAR(40) null,
-Usages			VARCHAR(40) null,
-Accidents 		VARCHAR(40) null
-
+    Fname VARCHAR(40) NULL,
+    Lname VARCHAR(40) NULL,
+    LicenseNumber VARCHAR(40) NOT NULL,
+    Violations VARCHAR(40) NULL,
+    Usages VARCHAR(40) NULL,
+    Accidents VARCHAR(40) NULL,
+    PRIMARY KEY (LicenseNumber)
 );
 
-/******************************************************************************
-	TABLE: Policy
-******************************************************************************/
-
-CREATE TABLE Policy(
-
-UserName		VARCHAR(20) null,
-Name			VARCHAR(20) null,
-Number			INT DEFAULT 0,
-Rate			DOUBLE DEFAULT 0.0,
-Vehicle			VARCHAR(20) null,
-Drivers			VARCHAR(20) null
-
-
-);
 
 /******************************************************************************
 	TABLE: Suspension
 ******************************************************************************/
 
-CREATE TABLE Suspension(
-
-SuspensionType		VARCHAR(20) null,
-DateStart			DATE null,
-DateEnd				DATE null
-
+CREATE TABLE Suspension (
+	Suspension_id INT NOT NULL,
+    LicenseNumber VARCHAR(40) NOT NULL,
+    SuspensionType VARCHAR(20) NULL,
+    DateStart DATE NULL,
+    DateEnd DATE NULL,
+    PRIMARY KEY(Suspension_id),
+    FOREIGN KEY (LicenseNumber) 
+		REFERENCES Driver(LicenseNumber)
+    
 );
 
 /******************************************************************************
 	TABLE: User
 ******************************************************************************/
 
-CREATE TABLE Users(
-	UserName VARCHAR(20) NOT NULL,
+CREATE TABLE Users (
+    UserName VARCHAR(20) NOT NULL,
     Password VARCHAR(20) NOT NULL,
-    PRIMARY KEY (UserName,Password)
-    
-    );
+    PRIMARY KEY (UserName )
+);
 
 /******************************************************************************
 	TABLE: Vehicle
 ******************************************************************************/
 
-CREATE TABLE Vehicle(
-
-Year			INT DEFAULT 0,
-Make			VARCHAR(20) null,
-Model			VARCHAR(20) null,
-Vin				VARCHAR(40) null,
-TotalMileage 	INT DEFAULT 0,
-AnnualMilega	INT DEFAULT 0
-
+CREATE TABLE Vehicle (
+	Vin VARCHAR(40) NOT NULL,
+    LicenseNumber VARCHAR(40) NOT NULL,
+    Year INT DEFAULT 0,
+    Make VARCHAR(20) NULL,
+    Model VARCHAR(20) NULL,
+    TotalMileage INT DEFAULT 0,
+    AnnualMilega INT DEFAULT 0,
+    PRIMARY KEY (Vin),
+    FOREIGN KEY (LicenseNumber) 
+		REFERENCES Driver(LicenseNumber)
 );
 
 
@@ -132,45 +86,106 @@ AnnualMilega	INT DEFAULT 0
 	TABLE: Violation
 ******************************************************************************/
 
-CREATE TABLE Violation(
-
-ViolationType		VARCHAR(20) null,
-DateOccured			DATE null,
-ConvictionDate		DATE null
-
-
+CREATE TABLE Violation (
+	Violation_id VARCHAR(40) NOT NULL,
+    LicenseNumber VARCHAR(40) NOT NULL,
+    ViolationType VARCHAR(20) NULL,
+    DateOccured DATE NULL,
+    ConvictionDate DATE NULL,
+    PRIMARY KEY (Violation_id),
+    FOREIGN KEY (LicenseNumber) 
+		REFERENCES Driver(LicenseNumber)
+    
 );
+/******************************************************************************
+	TABLE: Customer
+******************************************************************************/
+
 CREATE TABLE Customer (
-	UserName VARCHAR(20) NULL,
-    Fname	 VARCHAR(20) NULL,
-    Lname	 VARCHAR(20) NULL,
-    Dob		 DATE NULL,
-    Address  VARCHAR(100) NULL,
-    Phone    INT NULL,
-    Email	 VARCHAR(250) NULL,
-    Ss		 VARCHAR(9) NULL,
-    PRIMARY KEY (Fname, Lname)
+    UserName VARCHAR(20) NOT NULL,
+    Fname VARCHAR(20) NULL,
+    Lname VARCHAR(20) NULL,
+    Dob DATE NULL,
+    Address VARCHAR(100) NULL,
+    Phone INT NULL,
+    Email VARCHAR(250) NULL,
+    Ss VARCHAR(9) NULL,
+    FOREIGN KEY (UserName)
+        REFERENCES Users (UserName)
+);
+/******************************************************************************
+	TABLE: Agent
+******************************************************************************/
+
+CREATE TABLE Agent (
+    UserName VARCHAR(20) NOT NULL,
+    Fname VARCHAR(20) NOT NULL,
+    Lname VARCHAR(20) NOT NULL,
+    Dob DATE,
+    Address VARCHAR(100) NULL,
+    Phone INT NULL,
+    PayGrade VARCHAR(2) NULL,
+    PRIMARY KEY (UserName),
+    FOREIGN KEY (UserName)
+        REFERENCES Users (UserName)
+);
+
+
+/******************************************************************************
+	TABLE: Coverage
+******************************************************************************/
+
+CREATE TABLE Coverage (
+	Coverage_id VARCHAR(20) NOT NULL,
+    UserName VARCHAR(20) NOT NULL,
+    CoverageType VARCHAR(60) NULL,
+    biStateMinimum VARCHAR(20) NULL,
+    pdStateMinimum INT DEFAULT 25,
+    MedPayOptions INT NULL,
+    DeductibleOptions VARCHAR(20),
+    PRIMARY KEY(Coverage_id),
+    FOREIGN KEY(UserName) REFERENCES Users (UserName)
     
 );
 
-CREATE TABLE Agent(
-	UserName VARCHAR(20) NULL,
-    Fname	 VARCHAR(20) NULL,
-    Lname	 VARCHAR(20) NULL,
-    Dob		 DATE,
-    Address  VARCHAR(100) NULL,
-    Phone    INT NULL,
-    PayGrade VARCHAR(2)  NULL,
-    PRIMARY KEY (Fname, Lname)
 
+/******************************************************************************
+	Table : Accident
+******************************************************************************/
 
+CREATE TABLE Accident (
+	Accident_id VARCHAR(20) NOT NULL,
+    LicenseNumber VARCHAR(40) NOT NULL,
+    Vin				VARCHAR(40) NOT NULL,
+    AccidentType VARCHAR(40) NULL,
+    AccidentDate DATE NULL,
+    AtFault BOOLEAN NULL,
+    PRIMARY KEY (Accident_id),
+    FOREIGN KEY (LicenseNumber) 
+		REFERENCES Driver(LicenseNumber),
+	FOREIGN KEY (Vin) 
+		REFERENCES Vehicle(Vin)
+    
 );
 
 
 
+/******************************************************************************
+	TABLE: Policy
+******************************************************************************/
 
-
-
-
-
-
+CREATE TABLE Policy (
+	Policy_id	VARCHAR(40) NOT NULL,
+    UserName VARCHAR(20) NOT NULL,
+    Vin VARCHAR(40) NOT NULL,
+    Name VARCHAR(20) NULL,
+    Rate DOUBLE DEFAULT 0.0,
+    PRIMARY KEY (Policy_id),
+    FOREIGN KEY (UserName)
+        REFERENCES Users (UserName),
+	FOREIGN KEY (Vin) 
+		REFERENCES Vehicle(Vin)
+	
+    
+    
+);
