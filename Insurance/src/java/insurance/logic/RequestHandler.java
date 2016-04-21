@@ -5,6 +5,8 @@
  */
 package insurance.logic;
 
+import insurance.data.UserDAO;
+import insurance.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,6 +38,7 @@ public class RequestHandler extends HttpServlet {
         String nextLocation = null;
 
         String nextLocationText = request.getParameter("task");
+        HttpSession session = request.getSession();
 
         switch (nextLocationText) {
             case "login":
@@ -45,6 +49,19 @@ public class RequestHandler extends HttpServlet {
                 break;
             case "profile":
                 nextLocation = "/profile.jsp";
+                break;
+            case "validate_login":
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                //User curUser = UserDAO.getUserByUsername(username);
+                User curUser = new User();
+                curUser.setUsername(username);
+                session.setAttribute("user", curUser);
+                nextLocation = "/index.jsp";
+                break;
+            case "logout":
+                session.invalidate();
+                nextLocation = "/index.jsp";
                 break;
             default:
                 nextLocation = "/index.jsp";
