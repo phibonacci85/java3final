@@ -13,14 +13,14 @@ import java.util.Date;
  * @author nh228u27
  */
 public class Customer {
-    private String username = "";
-    private String firstname = "";
-    private String lastname = "";
-    private Date DOB = null;
-    private String address = "";
-    private int phone = 0;
-    private String email = "";
-    private String ss = "";
+    private String username;
+    private String firstname;
+    private String lastname;
+    private Date DOB;
+    private String address;
+    private int phone;
+    private String email;
+    private String ss;
 
     /**
      * @return the username

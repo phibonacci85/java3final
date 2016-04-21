@@ -6,35 +6,26 @@
 
 package insurance.model;
 
+import insurance.data.VehicleDAO;
+import java.util.List;
+
 /**
  *
  * @author nh228u27
  */
 public class Policy {
-    private User user = null;
-    private String name = null;
-    private int number = 0;
-    private Double rate = 0.0;
-    private Vehicle vehicle = null;
-    private Driver [] drivers = null;
+    private int policyId;
+    private String username;
+    private String vin;
+    private String name;
+    private Double rate;
     
-    Policy() {
-        
-    }
-
-    /**
-     * @return the user
-     */
-    public User getUser() {
-        return user;
-    }
-
-    /**
-     * @param user the user to set
-     */
-    public void setUser(User user) {
-        this.user = user;
-    }
+    
+    
+    public Vehicle vehicle = VehicleDAO.getVehicle(vin);
+    private List<Driver> drivers;
+    
+    public Policy() { }
 
     /**
      * @return the name
@@ -48,20 +39,6 @@ public class Policy {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * @return the number
-     */
-    public int getNumber() {
-        return number;
-    }
-
-    /**
-     * @param number the number to set
-     */
-    public void setNumber(int number) {
-        this.number = number;
     }
 
     /**
@@ -79,31 +56,45 @@ public class Policy {
     }
 
     /**
-     * @return the vehicle
-     */
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
-
-    /**
-     * @param vehicle the vehicle to set
-     */
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
-    }
-
-    /**
      * @return the drivers
      */
-    public Driver[] getDrivers() {
+    public List<Driver> getDrivers() {
         return drivers;
     }
 
     /**
      * @param drivers the drivers to set
      */
-    public void setDrivers(Driver[] drivers) {
+    public void setDrivers(List<Driver> drivers) {
         this.drivers = drivers;
+    }
+
+    /**
+     * @return the policyId
+     */
+    public int getPolicyId() {
+        return policyId;
+    }
+
+    /**
+     * @param policyId the policyId to set
+     */
+    public void setPolicyId(int policyId) {
+        this.policyId = policyId;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
     
 }

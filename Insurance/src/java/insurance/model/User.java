@@ -14,16 +14,23 @@ import java.util.List;
  * @author nh228u27
  */
 public class User {
-    private String username = null;
-    private String password = null;
-    private List<Accident> accidents = new ArrayList<>();
+    private String username;
+    private String password;
+    private String firstname;
+    private String lastname;
+    
+    public User() {
+        
+    }
+    
+    public User(String username){
+        this.username = username;
+    }
+    
     private List<Coverage> coverages = new ArrayList<>();
     private List<Policy> policies = new ArrayList<>();
     private List<Suspension> suspensions = new ArrayList<>();
-    private List<Vehicle> vehicles = new ArrayList<>();
-    private List<Violation> violations = new ArrayList<>();
     
-
     /**
      * @return the username
      */
@@ -50,20 +57,6 @@ public class User {
      */
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    /**
-     * @return the accidents
-     */
-    public List<Accident> getAccidents() {
-        return accidents;
-    }
-
-    /**
-     * @param accidents the accidents to set
-     */
-    public void setAccidents(List<Accident> accidents) {
-        this.accidents = accidents;
     }
 
     /**
@@ -109,30 +102,30 @@ public class User {
     }
 
     /**
-     * @return the vehicles
+     * @return the firstname
      */
-    public List<Vehicle> getVehicles() {
-        return vehicles;
+    public String getFirstname() {
+        return firstname;
     }
 
     /**
-     * @param vehicles the vehicles to set
+     * @param firstname the firstname to set
      */
-    public void setVehicles(List<Vehicle> vehicles) {
-        this.vehicles = vehicles;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     /**
-     * @return the violations
+     * @return the lastname
      */
-    public List<Violation> getViolations() {
-        return violations;
+    public String getLastname() {
+        return lastname;
     }
 
     /**
-     * @param violations the violations to set
+     * @param lastname the lastname to set
      */
-    public void setViolations(List<Violation> violations) {
-        this.violations = violations;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 }

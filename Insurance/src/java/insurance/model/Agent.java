@@ -13,15 +13,15 @@ import java.util.Date;
  * @author nh228u27
  */
 public class Agent {
-    private String username = "";
-    private String firstname = "";
-    private String lastname = "";
-    private Date DOB = null;
-    private String address  = "";
-    private int phone = 0;
-    private String roleName = "";
-    private String payGrade = "";
+    private String username;
+    private String firstname;
+    private String lastname;
+    private Date DOB;
+    private String address;
+    private int phone;
+    private String payGrade;
 
+    public Agent() {}
     /**
      * @return the username
      */
@@ -104,20 +104,6 @@ public class Agent {
      */
     public void setPhone(int phone) {
         this.phone = phone;
-    }
-
-    /**
-     * @return the roleName
-     */
-    public String getRoleName() {
-        return roleName;
-    }
-
-    /**
-     * @param roleName the roleName to set
-     */
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
     }
 
     /**

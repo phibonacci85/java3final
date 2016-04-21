@@ -13,11 +13,15 @@ import java.util.Date;
  * @author nh228u27
  */
 public class Violation {
-    private ViolationType type = null;
-    private Date dateOccured = null;
-    private Date convictionDate = null;
+    private int violationId;
+    private String liscenseNumber;
+    private ViolationType type;
+    private Date dateOccured;
+    private Date convictionDate;
     
-    public double ViolationSurchargePoints(ViolationType type){
+    
+    public double ViolationSurchargePoints(){
+        double surchargePoints = 0.0;
         switch(type){
             case SPEEDING:
 
@@ -43,7 +47,7 @@ public class Violation {
             default: //LISENCE_INVALID
                 
         }
-        return 0.0;
+        return surchargePoints;
     }
 
     /**
@@ -86,5 +90,33 @@ public class Violation {
      */
     public void setConvictionDate(Date convictionDate) {
         this.convictionDate = convictionDate;
+    }
+
+    /**
+     * @return the violationId
+     */
+    public int getViolationId() {
+        return violationId;
+    }
+
+    /**
+     * @param violationId the violationId to set
+     */
+    public void setViolationId(int violationId) {
+        this.violationId = violationId;
+    }
+
+    /**
+     * @return the liscenseNumber
+     */
+    public String getLiscenseNumber() {
+        return liscenseNumber;
+    }
+
+    /**
+     * @param liscenseNumber the liscenseNumber to set
+     */
+    public void setLiscenseNumber(String liscenseNumber) {
+        this.liscenseNumber = liscenseNumber;
     }
 }

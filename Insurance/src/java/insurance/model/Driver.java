@@ -6,18 +6,24 @@
 
 package insurance.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import static oracle.jrockit.jfr.tools.ConCatRepository.usage;
+
 /**
  *
  * @author nh228u27
  */
 public class Driver {
-    private String firstName = null;
-    private String lastName = null;
-    private String licenseNumber = null;
-    private Violation [] violations = null;
-    private VehicleUsage usage = null;
-    private Accident [] accidents = null;
+    private String licenseNumber;
+    private String firstName;
+    private String lastName;
+    private VehicleUsage usage;
     
+    private List<Accident> accidents = new ArrayList<>();
+    private List<Vehicle> vehicles = new ArrayList<>();
+    private List<Violation> violations = new ArrayList<>();
+    private List<Suspension> suspensions = new ArrayList<>();
     
     public double UsageSurchargePoints(VehicleUsage usage){
         switch(usage){
@@ -81,14 +87,14 @@ public class Driver {
     /**
      * @return the violations
      */
-    public Violation[] getViolations() {
+    public List<Violation> getViolations() {
         return violations;
     }
 
     /**
      * @param violations the violations to set
      */
-    public void setViolations(Violation[] violations) {
+    public void setViolations(List<Violation> violations) {
         this.setViolations(violations);
     }
 
@@ -109,14 +115,42 @@ public class Driver {
     /**
      * @return the accidents
      */
-    public Accident[] getAccidents() {
+    public List<Accident> getAccidents() {
         return accidents;
     }
 
     /**
      * @param accidents the accidents to set
      */
-    public void setAccidents(Accident[] accidents) {
+    public void setAccidents(List<Accident> accidents) {
         this.setAccidents(accidents);
+    }
+
+    /**
+     * @return the vehicles
+     */
+    public List<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    /**
+     * @param vehicles the vehicles to set
+     */
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
+    }
+
+    /**
+     * @return the suspensions
+     */
+    public List<Suspension> getSuspensions() {
+        return suspensions;
+    }
+
+    /**
+     * @param suspensions the suspensions to set
+     */
+    public void setSuspensions(List<Suspension> suspensions) {
+        this.suspensions = suspensions;
     }
 }

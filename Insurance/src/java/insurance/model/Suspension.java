@@ -13,10 +13,14 @@ import java.util.Date;
  * @author nh228u27
  */
 public class Suspension {
-    private SuspensionType type = null;
-    private Date dateStart = null;
-    private Date dateEnd = null;
-
+    private int suspensionId;
+    private String username;
+    private SuspensionType type;
+    private Date dateStart;
+    private Date dateEnd;
+    
+    public Suspension() { }
+    
     /**
      * @return the type
      */
@@ -57,5 +61,33 @@ public class Suspension {
      */
     public void setDateEnd(Date dateEnd) {
         this.dateEnd = dateEnd;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * @return the suspensionId
+     */
+    public int getSuspensionId() {
+        return suspensionId;
+    }
+
+    /**
+     * @param suspensionId the suspensionId to set
+     */
+    public void setSuspensionId(int suspensionId) {
+        this.suspensionId = suspensionId;
     }
 }

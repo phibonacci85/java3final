@@ -6,23 +6,24 @@
 
 package insurance.model;
 
+import java.util.List;
+
 /**
  *
  * @author nh228u27
  */
 public class Coverage {
-    private CoverageType type = null;
-    private String biStateMinimum = null;
-    private int pdStateMinimum = 25;
-    private int [] medPayOptions = null;
-    private DeductibleOptions deductibleOptions = null;
+    private int coverageId;
+    private String username;
+    private CoverageType type;
+    private String biStateMinimum;
+    private int pdStateMinimum;
+    private DeductibleOption deductibleOption;
+    private int medPay;
     
-    Coverage(){
-        if(type == type.MEDICAL_PAYMENT_COVERAGE) {
-            medPayOptions = new int [] {1000,2000,3000,5000,10000};
-        }
-        
-    }
+    private int [] medPayOptions;
+    
+    public Coverage(){}
     
     public String BIStateMinimum(StateCode code) {
         String minimum = "";
@@ -47,6 +48,9 @@ public class Coverage {
      * @return the type
      */
     public CoverageType getType() {
+        if(type == type.MEDICAL_PAYMENT_COVERAGE) {
+            medPayOptions = new int [] {1000,2000,3000,5000,10000};
+        }
         return type;
     }
 
@@ -102,14 +106,56 @@ public class Coverage {
     /**
      * @return the deductibleOptions
      */
-    public DeductibleOptions getDeductibleOptions() {
-        return deductibleOptions;
+    public DeductibleOption getDeductibleOption() {
+        return deductibleOption;
     }
 
     /**
      * @param deductibleOptions the deductibleOptions to set
      */
-    public void setDeductibleOptions(DeductibleOptions deductibleOptions) {
-        this.deductibleOptions = deductibleOptions;
+    public void setDeductibleOption(DeductibleOption deductibleOptions) {
+        this.deductibleOption = deductibleOption;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * @return the coverageId
+     */
+    public int getCoverageId() {
+        return coverageId;
+    }
+
+    /**
+     * @param coverageId the coverageId to set
+     */
+    public void setCoverageId(int coverageId) {
+        this.coverageId = coverageId;
+    }
+
+    /**
+     * @return the medPay
+     */
+    public int getMedPay() {
+        return medPay;
+    }
+
+    /**
+     * @param medPay the medPay to set
+     */
+    public void setMedPay(int medPay) {
+        this.medPay = medPay;
     }
 }

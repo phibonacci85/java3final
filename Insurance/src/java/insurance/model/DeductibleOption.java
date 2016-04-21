@@ -10,7 +10,7 @@ package insurance.model;
  *
  * @author nh228u27
  */
-public enum DeductibleOptions {
+public enum DeductibleOption {
     COLLISION,
     COMPREHENSIVE,
     BOTH

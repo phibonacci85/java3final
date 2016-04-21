@@ -11,16 +11,15 @@ package insurance.model;
  * @author nh228u27
  */
 public class Vehicle {
-    private int year = 0;
-    private String make = null;
-    private String model = null;
-    private String vin = null;
-    private int totalMileage = 0;
-    private int annualMileage = 0;
+    private String vin;
+    private String liscenseNumber;
+    private String make;
+    private String model;
+    private int year;
+    private int totalMileage;
+    private int annualMileage;
     
-    public Vehicle() {
-        
-    }
+    public Vehicle() { }
 
     /**
      * @return the year
@@ -104,5 +103,19 @@ public class Vehicle {
      */
     public void setAnnualMileage(int annualMileage) {
         this.annualMileage = annualMileage;
+    }
+
+    /**
+     * @return the liscenseNumber
+     */
+    public String getLiscenseNumber() {
+        return liscenseNumber;
+    }
+
+    /**
+     * @param liscenseNumber the liscenseNumber to set
+     */
+    public void setLiscenseNumber(String liscenseNumber) {
+        this.liscenseNumber = liscenseNumber;
     }
 }
