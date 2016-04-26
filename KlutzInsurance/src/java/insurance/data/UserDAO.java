@@ -97,6 +97,38 @@ public class UserDAO {
         return user;
     }
     
+        public static boolean createUsers(User user)
+        throws ClassNotFoundException {
+        boolean succeeded = false;
+         //All connections go through DBConnection.getConnection();
+        Connection conn = null;
+        
+        try {
+            conn = DBConnection.getConnection();
+            String queryString = "sp_insertUsername(?,?);"; //question mark is a placeholder
+            CallableStatement callableStatement = conn.prepareCall(queryString);
+            
+            callableStatement.setString(1, user.getUsername());
+            callableStatement.setString(1, user.getPassword());
+            
+            succeeded = callableStatement.execute();
+            
+        } catch (SQLException ex) {
+            System.out.println("Technical Difficulties... ");
+            System.err.println(ex.getMessage());
+        }finally {
+            try {
+                if(conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Technical Difficulties");
+                System.err.println(ex.getMessage());
+            }
+        }
+        return succeeded;
+    }
+    
     public static String getUserFirstName() {
         String lastname = "FIRSTNAME";
         return lastname;
