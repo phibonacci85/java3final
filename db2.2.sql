@@ -28,8 +28,8 @@ USE J3Project2;
 ******************************************************************************/
 
 CREATE TABLE Driver (
-    Fname VARCHAR(40) NULL,
-    Lname VARCHAR(40) NULL,
+    Fname VARCHAR(40) NOT NULL,
+    Lname VARCHAR(40) NOT NULL,
     LicenseNumber VARCHAR(40) NOT NULL,
     Violations VARCHAR(40) NULL,
     Usages VARCHAR(40) NULL,
@@ -187,5 +187,31 @@ CREATE TABLE Policy (
 		REFERENCES Vehicle(Vin)
 	
     
+    
+);
+
+/******************************************************************************
+	TABLE: Join tables \/\/\/
+******************************************************************************/
+/******************************************************************************
+	TABLE: Accident/Driver 
+******************************************************************************/
+
+CREATE TABLE AccidentDriver (
+    Accident_id VARCHAR(20) NOT NULL,
+    Coverage_id VARCHAR(20) NOT NULL,
+    LicenseNumber VARCHAR(40) NOT NULL,
+    Policy_id VARCHAR(40) NOT NULL,
+    Vin VARCHAR(40) NOT NULL,
+    FOREIGN KEY (Accident_id)
+        REFERENCES Accident (Accident_id),
+    FOREIGN KEY (Coverage_id)
+        REFERENCES Coverage (Coverage_id),
+    FOREIGN KEY (LicenseNumber)
+    REFERENCES Driver(LicenseNumber),
+    FOREIGN KEY (Policy_id)
+        REFERENCES Policy (Policy_id),
+    FOREIGN KEY (Vin)
+        REFERENCES Vehicle (Vin)
     
 );
