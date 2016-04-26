@@ -30,7 +30,7 @@ public class ViolationDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "get_Suspensions(?);"; //question mark is a placeholder
+            String queryString = "sp_selectViolationsByLiscenseNumber(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             String id = liscenseNumber;
             
