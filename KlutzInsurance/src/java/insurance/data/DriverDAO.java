@@ -37,7 +37,7 @@ public class DriverDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "get_Drivers(?);"; //question mark is a placeholder
+            String queryString = "selectDriversByVin(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             int id = vehicleId;
             

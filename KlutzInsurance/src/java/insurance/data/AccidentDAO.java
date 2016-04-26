@@ -32,7 +32,7 @@ public class AccidentDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "get_Accidents();"; //question mark is a placeholder
+            String queryString = "sp_selectAccidents();"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             ResultSet resultSet = callableStatement.executeQuery();

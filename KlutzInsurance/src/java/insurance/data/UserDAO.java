@@ -33,7 +33,7 @@ public class UserDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "get_Coverages(?);"; //question mark is a placeholder
+            String queryString = "sp_selectUsers();"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             ResultSet resultSet = callableStatement.executeQuery();
@@ -69,9 +69,11 @@ public class UserDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "get_User(?);"; //question mark is a placeholder
+            String queryString = "sp_selectUserByUsername(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
+            String id = username;
             
+            callableStatement.setString(1, id);
             ResultSet resultSet = callableStatement.executeQuery();
                     
             //set employee object to the result set from the query
