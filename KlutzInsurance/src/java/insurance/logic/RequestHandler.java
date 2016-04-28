@@ -176,7 +176,7 @@ public class RequestHandler extends HttpServlet {
                     String createVehicleLicenseNumber = request.getParameter("createVehicleLicenseNumber");
                     Vehicle vehicle = new Vehicle();
                     vehicle.setVin("ABC1234");
-                    vehicle.setLiscenseNumber("339XX1234");
+                    vehicle.setLicenseNumber("339XX1234");
                     vehicle.setMake("Dodge");
                     vehicle.setModel("Stratus");
                     vehicle.setYear(2002);
