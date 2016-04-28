@@ -63,4 +63,41 @@ public class PolicyDAO {
         }
         return policies;
     }
+    
+    public static boolean createPolicy(String createUsername, String createPassword)
+        throws ClassNotFoundException {
+        boolean succeeded = false;
+         //All connections go through DBConnection.getConnection();
+        Connection conn = null;
+        
+        try {
+            conn = DBConnection.getConnection();
+            String queryString = "call sp_insertUsername(?,?);"; //question mark is a placeholder
+            CallableStatement callableStatement = conn.prepareCall(queryString);
+            
+            callableStatement.setString(1, createUsername);
+            callableStatement.setString(2, createPassword);
+            
+            if(!callableStatement.execute()){
+                int updateCount = callableStatement.getUpdateCount();
+                if(updateCount == 1) {
+                    succeeded = true;
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println("Technical Difficulties... ");
+            System.err.println(ex.getMessage());
+        }finally {
+            try {
+                if(conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Technical Difficulties");
+                System.err.println(ex.getMessage());
+            }
+        }
+        return succeeded;
+    }
 }

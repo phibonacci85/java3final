@@ -92,6 +92,13 @@ public class RequestHandler extends HttpServlet {
                     nextLocation = "/index.jsp";
                 } else {
                     ArrayList<Policy> policies = new ArrayList();
+                    Policy policy1 = new Policy();
+                    policy1.setPolicyId(1);
+                    Policy policy2 = new Policy();
+                    policy2.setPolicyId(2);
+                    policies.add(policy1);
+                    policies.add(policy2);
+                    request.setAttribute("policies", policies);
                     nextLocation = "/browse_policies.jsp";
                 }
                 break;

@@ -8,6 +8,10 @@ and open the template in the editor.
     Author     : John
 */
 
+html {
+    overflow-y: scroll;
+}
+
 .text {
   color: rgba(255, 255, 255, .9);
 }
@@ -30,7 +34,7 @@ and open the template in the editor.
     background-image: url(../img/background/3.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    box-shadow: 0px 1px 30px rgba(0, 0, 0, 1);
+    /*box-shadow: 0px 1px 30px rgba(0, 0, 0, 1);*/
 }
 
 .top-bar ul {

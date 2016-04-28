@@ -14,6 +14,24 @@
     </head>
     <body>
         <jsp:include page="/includes/top_bar.jsp" />
-        <h1>Browse Policies</h1>
+        <h1 class="text-center">Browse Policies</h1>
+        <table border="1" cellpadding="10">
+            <thead>
+                <th>Policy Id</th>
+                <th>VIN</th>
+                <th>Name</th>
+                <th>Rate</th>
+            </thead>
+            <tbody>
+                <c:forEach items="${policies}" var="policy" >
+                    <tr>
+                        <td>${policy.policyId}</td>
+                        <td>${policy.vin}</td>
+                        <td>${policy.name}</td>
+                        <td>${policy.rate}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
     </body>
 </html>
