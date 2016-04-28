@@ -30,7 +30,7 @@ public class PolicyDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectPoliciesByUsername(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectPoliciesByUsername(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             int id = policyId;
             
@@ -40,9 +40,10 @@ public class PolicyDAO {
             //set employee object to the result set from the query
             while(resultSet.next()) {
                 policy.setPolicyId(resultSet.getInt(1));
-                policy.setVin(resultSet.getString(2));
-                policy.setName(resultSet.getString(3));
-                policy.setRate(resultSet.getDouble(4));
+                policy.setUsername(resultSet.getString(2));
+                policy.setVin(resultSet.getString(3));
+                policy.setName(resultSet.getString(4));
+                policy.setRate(resultSet.getDouble(5));
             } 
         } catch (SQLException ex) {
             System.out.println("Technical Difficulties... ");
@@ -68,7 +69,7 @@ public class PolicyDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectPolicies();"; //question mark is a placeholder
+            String queryString = "call sp_selectPolicies();"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             ResultSet resultSet = callableStatement.executeQuery();
@@ -77,9 +78,10 @@ public class PolicyDAO {
             while(resultSet.next()) {
                 Policy policy = new Policy();
                 policy.setPolicyId(resultSet.getInt(1));
-                policy.setVin(resultSet.getString(2));
-                policy.setName(resultSet.getString(3));
-                policy.setRate(resultSet.getDouble(4));
+                policy.setUsername(resultSet.getString(2));
+                policy.setVin(resultSet.getString(3));
+                policy.setName(resultSet.getString(4));
+                policy.setRate(resultSet.getDouble(5));
                 policies.add(policy);
             } 
         } catch (SQLException ex) {
@@ -117,9 +119,10 @@ public class PolicyDAO {
             while(resultSet.next()) {
                 Policy policy = new Policy();
                 policy.setPolicyId(resultSet.getInt(1));
-                policy.setVin(resultSet.getString(2));
-                policy.setName(resultSet.getString(3));
-                policy.setRate(resultSet.getDouble(4));
+                policy.setUsername(resultSet.getString(2));
+                policy.setVin(resultSet.getString(3));
+                policy.setName(resultSet.getString(4));
+                policy.setRate(resultSet.getDouble(5));
                 policies.add(policy);
             } 
         } catch (SQLException ex) {

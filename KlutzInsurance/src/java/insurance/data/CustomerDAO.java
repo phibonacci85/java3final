@@ -28,7 +28,7 @@ public class CustomerDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectCustomerByUsername(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectCustomerByUsername(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             String id = username;
             
@@ -70,7 +70,7 @@ public class CustomerDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectCustomers();"; //question mark is a placeholder
+            String queryString = "call sp_selectCustomers();"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             ResultSet resultSet = callableStatement.executeQuery();
@@ -112,7 +112,7 @@ public class CustomerDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_insertCustomer(?,?,?,?,?,?,?,?);"; //question mark is a placeholder
+            String queryString = "call sp_insertCustomer(?,?,?,?,?,?,?,?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             callableStatement.setString(1, customer.getUsername());
             callableStatement.setString(2, customer.getFirstname());
@@ -123,7 +123,12 @@ public class CustomerDAO {
             callableStatement.setString(7, customer.getEmail());
             callableStatement.setString(8, customer.getSs());
             
-            succeeded = callableStatement.execute();
+            if(!callableStatement.execute()) {
+                int updateCount = callableStatement.getUpdateCount();
+                if(updateCount == 1) {
+                    succeeded = true;
+                }
+            }
             
         } catch (SQLException ex) {
             System.out.println("Technical Difficulties... ");
