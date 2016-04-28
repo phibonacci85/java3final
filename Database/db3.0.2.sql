@@ -38,15 +38,16 @@ CREATE TABLE Driver (
     LicenseNumber VARCHAR(40) NOT NULL,
     Fname VARCHAR(40) NOT NULL,
     Lname VARCHAR(40) NOT NULL,
-    Useages VARCHAR(40) NOT NULL,
+    Usages VARCHAR(40) NOT NULL,
     DOB DATE,
+    Username VARCHAR(20) NULL,
     PRIMARY KEY (LicenseNumber)
 );
 
-INSERT INTO Driver(LicenseNumber,Fname,Lname,Useages,DOB)
+INSERT INTO Driver(LicenseNumber,Fname,Lname,Usages,DOB,Username)
 VALUES
-('444aa8888','firstname1','lastname1','SCHOOL','1999-01-01'),
-('333bb8888','firstname2','lastname2','WORK','1999-02-02');
+('444aa8888','firstname1','lastname1','SCHOOL','1999-01-01','snanke19'),
+('333bb8888','firstname2','lastname2','WORK','1999-02-02','Phibonacci85');
 
 
 /******************************************************************************
@@ -98,13 +99,14 @@ CREATE TABLE Vehicle (
     TotalMileage INT DEFAULT 0,
     AnnualMileage INT DEFAULT 0,
     PRIMARY KEY (Vin),
+    Username VARCHAR(20) NULL,
     FOREIGN KEY (LicenseNumber) 
 		REFERENCES Driver(LicenseNumber)
 );
 
-INSERT INTO Vehicle(Vin,LicenseNumber,Year,Make,Model,TotalMileage,AnnualMileage)
-VALUES('ljcpcblcx11000237','444aa8888','2010','Ford','Escape','980000','5000'),
-('fakevinexample','333bb8888','2015','Honda','civic','25000','5000');
+INSERT INTO Vehicle(Vin,LicenseNumber,Year,Make,Model,TotalMileage,AnnualMileage,Username)
+VALUES('ljcpcblcx11000237','444aa8888','2010','Ford','Escape','980000','5000','Phibonacci85'),
+('fakevinexample','333bb8888','2015','Honda','civic','25000','5000','snanke19');
 
 
 /******************************************************************************
@@ -314,25 +316,14 @@ IN LicenseNumber VARCHAR(40),
 IN Fname VARCHAR(40),
 IN Lname VARCHAR(40),
 IN Usages VARCHAR(40),
-IN DOB DATE)
+IN DOB DATE,
+IN Username VARCHAR(20))
 BEGIN
-INSERT INTO Driver(LicenseNumber,Fname,Lname,Usages,DOB)
-VALUES (LicenseNumber,Fname,Lname,Usages,DOB);
+INSERT INTO Driver(LicenseNumber,Fname,Lname,Usages,DOB,Username)
+VALUES (LicenseNumber,Fname,Lname,Usages,DOB,Username);
 END$$
 DELIMITER 
 
-DELIMITER $$
-Create Procedure sp_insertDriverBasic(
-IN LicenseNumber VARCHAR(40),
-IN Fname VARCHAR(40),
-IN Lname VARCHAR(40),
-IN Age	INT,
-IN Usages VARCHAR(40))
-BEGIN
-INSERT INTO Driver(Fname,Lname,LicenseNumber,Age,Usages)
-VALUES (Fname,Lname,LicenseNumber,Age,Usages);
-END$$
-DELIMITER 
 /******************************************************************************
 	STORED PROCEDURE: Policy
 ******************************************************************************/
@@ -385,10 +376,11 @@ IN Year INT,
 IN Make VARCHAR(20), 
 IN Model VARCHAR(20),
 IN TotalMileage INT,
-IN AnnualMileage INT   )
+IN AnnualMileage INT,
+IN Username VARCHAR(20))
 BEGIN
-INSERT INTO Vehicle (LicenseNumber,Vin,Year,Make,Model,TotalMileage,AnnualMileage) 
-VALUES (LicenseNumber,Vin,Year,Make,Model,TotalMileage,AnnualMileage) ;
+INSERT INTO Vehicle (LicenseNumber,Vin,Year,Make,Model,TotalMileage,AnnualMileage,Username) 
+VALUES (LicenseNumber,Vin,Year,Make,Model,TotalMileage,AnnualMileage,Username) ;
 END$$
 DELIMITER 
 /******************************************************************************
@@ -528,6 +520,15 @@ END $$
 DELIMITER 
 
 DELIMITER $$
+CREATE PROCEDURE sp_selectDriverByUsername
+(IN usernameP VARCHAR(20))
+BEGIN
+  SELECT * FROM driver
+  WHERE username = usernameP;
+END $$
+DELIMITER 
+
+DELIMITER $$
 CREATE PROCEDURE sp_selectDriversByVin
 (IN vinP VARCHAR(40))
 BEGIN
@@ -625,7 +626,7 @@ END $$
 DELIMITER 
 
 DELIMITER $$
-CREATE PROCEDURE sp_selectVehicleByUserName
+CREATE PROCEDURE sp_selectVehicleByUsername
 (IN UserNameP VARCHAR(20))
 BEGIN
   SELECT * FROM vehicle
