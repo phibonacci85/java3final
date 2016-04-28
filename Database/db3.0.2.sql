@@ -38,12 +38,12 @@ CREATE TABLE Driver (
     LicenseNumber VARCHAR(40) NOT NULL,
     Fname VARCHAR(40) NOT NULL,
     Lname VARCHAR(40) NOT NULL,
-    Useages VARCHAR(40) NOT NULL,
+    Usages VARCHAR(40) NOT NULL,
     DOB DATE,
     PRIMARY KEY (LicenseNumber)
 );
 
-INSERT INTO Driver(LicenseNumber,Fname,Lname,Useages,DOB)
+INSERT INTO Driver(LicenseNumber,Fname,Lname,Usages,DOB)
 VALUES
 ('444aa8888','firstname1','lastname1','SCHOOL','1999-01-01'),
 ('333bb8888','firstname2','lastname2','WORK','1999-02-02');

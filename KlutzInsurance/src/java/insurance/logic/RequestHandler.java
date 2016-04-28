@@ -114,7 +114,7 @@ public class RequestHandler extends HttpServlet {
                 } else {
                     try{
                         List<Driver> drivers = DriverDAO.getDrivers();
-                        List<Vehicle> vehicles = VehicleDAO.getUserVehicles(curUser.getUsername());
+                        List<Vehicle> vehicles = VehicleDAO.getVehicles();
                         if(null != drivers && drivers.size() > 0)
                             request.setAttribute("drivers", drivers);
                         if(null != vehicles && vehicles.size() > 0)
@@ -160,7 +160,7 @@ public class RequestHandler extends HttpServlet {
                         DriverDAO.createDriver(driver);
                         
                         List<Driver> drivers = DriverDAO.getDrivers();
-                        List<Vehicle> vehicles = VehicleDAO.getUserVehicles(curUser.getUsername());
+                        List<Vehicle> vehicles = VehicleDAO.getVehicles();
                         if(null != drivers && drivers.size() > 0)
                             request.setAttribute("drivers", drivers);
                         if(null != vehicles && vehicles.size() > 0)
@@ -195,7 +195,7 @@ public class RequestHandler extends HttpServlet {
                         VehicleDAO.createVehicle(vehicle);
                         
                         List<Driver> drivers = DriverDAO.getDrivers();
-                        List<Vehicle> vehicles = VehicleDAO.getUserVehicles(curUser.getUsername());
+                        List<Vehicle> vehicles = VehicleDAO.getVehicles();
                         if(null != drivers && drivers.size() > 0)
                             request.setAttribute("drivers", drivers);
                         if(null != vehicles && vehicles.size() > 0)
