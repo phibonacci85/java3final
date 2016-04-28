@@ -30,7 +30,7 @@ public class AgentDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectUsers();"; //question mark is a placeholder
+            String queryString = "sp_selectAgents();"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             ResultSet resultSet = callableStatement.executeQuery();
@@ -112,7 +112,7 @@ public class AgentDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_insertAgent(?,?,?,?,?);"; //question mark is a placeholder
+            String queryString = "sp_insertAgent(?,?,?,?,?,?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             callableStatement.setString(1, agent.getUsername());
