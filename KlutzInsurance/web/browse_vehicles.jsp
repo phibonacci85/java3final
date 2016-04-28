@@ -17,18 +17,26 @@
         <h1 class="text-center">Browse Vehicles</h1>
         <table border="1" cellpadding="10">
             <thead>
-                <th>Policy Id</th>
                 <th>VIN</th>
-                <th>Name</th>
-                <th>Rate</th>
+                <th>License Number</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Total Mileage</th>
+                <th>Annual Mileage</th>
+                <th>Username</th>
             </thead>
             <tbody>
-                <c:forEach items="${policies}" var="policy" >
+                <c:forEach items="${vehicles}" var="vehicle" >
                     <tr>
-                        <td>${policy.policyId}</td>
-                        <td>${policy.vin}</td>
-                        <td>${policy.name}</td>
-                        <td>${policy.rate}</td>
+                        <td>${vehicle.vin}</td>
+                        <td>${vehicle.licenseNumber}</td>
+                        <td>${vehicle.make}</td>
+                        <td>${vehicle.model}</td>
+                        <td>${vehicle.year}</td>
+                        <td>${vehicle.totalMileage}</td>
+                        <td>${vehicle.annualMileage}</td>
+                        <td>${vehicle.username}</td>
                     </tr>
                 </c:forEach>
             </tbody>
