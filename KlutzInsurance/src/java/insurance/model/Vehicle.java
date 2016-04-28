@@ -12,7 +12,7 @@ package insurance.model;
  */
 public class Vehicle {
     private String vin;
-    private String liscenseNumber;
+    private String licenseNumber;
     private String make;
     private String model;
     private int year;
@@ -106,16 +106,16 @@ public class Vehicle {
     }
 
     /**
-     * @return the liscenseNumber
+     * @return the licenseNumber
      */
-    public String getLiscenseNumber() {
-        return liscenseNumber;
+    public String getLicenseNumber() {
+        return licenseNumber;
     }
 
     /**
-     * @param liscenseNumber the liscenseNumber to set
+     * @param licenseNumber the licenseNumber to set
      */
-    public void setLiscenseNumber(String liscenseNumber) {
-        this.liscenseNumber = liscenseNumber;
+    public void setLicenseNumber(String licenseNumber) {
+        this.licenseNumber = licenseNumber;
     }
 }
