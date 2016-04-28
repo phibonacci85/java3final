@@ -1,13 +1,22 @@
 
 /*88888888888888
 
-CLAYTON KNIGHT
+
+KLUTS Insurance TEAM Database
+
+CLAYTON KNIGHT DB Manager,
 
 		DO NOT EDIT COPY AND PASTE 
         
         
 this file will create the data base use for our insuance application.
-it already adds the need stored procedures for insert and Fselect.
+*****if you want to run the application you must run this file*****
+it already adds the needed stored procedures for insert and select to interact with the database.
+
+the file also creates 2 customers as well as 4 agents(our names) 
+the one customer has a violation and supsention the other customer has accident
+
+
 
 
 
@@ -35,19 +44,19 @@ USE J3Project2;
 ******************************************************************************/
 
 CREATE TABLE Driver (
-    LicenseNumber VARCHAR(40) NOT NULL,
-    Fname VARCHAR(40) NOT NULL,
-    Lname VARCHAR(40) NOT NULL,
-    Usages VARCHAR(40) NOT NULL,
-    DOB DATE,
-    Username VARCHAR(20) NULL,
+    LicenseNumber VARCHAR(40) NOT NULL COMMENT 'Driver primary key',
+    Fname VARCHAR(40) NOT NULL COMMENT 'Drivers First Name',
+    Lname VARCHAR(40) NOT NULL COMMENT 'Drivers Last Name',
+    Usages VARCHAR(40) NOT NULL  COMMENT 'Enum',
+    DOB DATE  COMMENT 'YYYY-MM-DD',
+    Username VARCHAR(20) NULL COMMENT 'added at programers request',
     PRIMARY KEY (LicenseNumber)
 );
 
 INSERT INTO Driver(LicenseNumber,Fname,Lname,Usages,DOB,Username)
 VALUES
-('444aa8888','firstname1','lastname1','SCHOOL','1999-01-01','snanke19'),
-('333bb8888','firstname2','lastname2','WORK','1999-02-02','Phibonacci85');
+('444aa8888','firstname1','lastname1','SCHOOL','1999-01-01','cust0001'),
+('333bb8888','firstname2','lastname2','WORK','1999-02-02','cust0002');
 
 
 /******************************************************************************
@@ -55,24 +64,26 @@ VALUES
 ******************************************************************************/
 
 CREATE TABLE Suspension (
-	Suspension_id INT NOT NULL,
-    LicenseNumber VARCHAR(40) NOT NULL,
-    SuspensionType VARCHAR(20) NULL,
-    DateStart DATE NULL,
-    DateEnd DATE NULL,
+	Suspension_id INT AUTO_INCREMENT NOT NULL  COMMENT 'Suspension primary key',
+    LicenseNumber VARCHAR(40) NOT NULL  COMMENT 'Suspension Foreign key',
+    SuspensionType VARCHAR(20) NULL  COMMENT 'ENUM',
+    DateStart DATE NULL  COMMENT 'YYYY-MM-DD',
+    DateEnd DATE NULL COMMENT 'YYYY-MM-DD',
     PRIMARY KEY(Suspension_id),
     FOREIGN KEY (LicenseNumber) 
 		REFERENCES Driver(LicenseNumber)
     
 );
 
+INSERT INTO Suspension(LicenseNumber,SuspensionType,DateStart,DateEnd)
+VALUES('444aa8888','dui','2016-01-01','2016-12-12');
 /******************************************************************************
 	TABLE: User
 ******************************************************************************/
 
 CREATE TABLE Users (
-    UserName VARCHAR(20) NOT NULL,
-    Password VARCHAR(20) NOT NULL,
+    UserName VARCHAR(20) NOT NULL COMMENT 'Users primary key',
+    Password VARCHAR(20) NOT NULL COMMENT 'passwords are generic for sample data',
     PRIMARY KEY (UserName )
     
 );
@@ -91,13 +102,13 @@ VALUES
 ******************************************************************************/
 
 CREATE TABLE Vehicle (
-	Vin VARCHAR(40) NOT NULL,
-    LicenseNumber VARCHAR(40)NULL,
-    Year INT DEFAULT 0,
-    Make VARCHAR(20) NULL,
-    Model VARCHAR(20) NULL,
-    TotalMileage INT DEFAULT 0,
-    AnnualMileage INT DEFAULT 0,
+	Vin VARCHAR(40) NOT NULL COMMENT 'Driver primary key',
+    LicenseNumber VARCHAR(40)NULL COMMENT 'Driver Foreign key',
+    Year INT DEFAULT 0 COMMENT 'year of car',
+    Make VARCHAR(20) NULL COMMENT 'the make  of car',
+    Model VARCHAR(20) NULL COMMENT 'the model of car',
+    TotalMileage INT DEFAULT 0  COMMENT 'mileage of car',
+    AnnualMileage INT DEFAULT 0 COMMENT 'miles driven yearly',
     PRIMARY KEY (Vin),
     Username VARCHAR(20) NULL,
     FOREIGN KEY (LicenseNumber) 
@@ -105,8 +116,8 @@ CREATE TABLE Vehicle (
 );
 
 INSERT INTO Vehicle(Vin,LicenseNumber,Year,Make,Model,TotalMileage,AnnualMileage,Username)
-VALUES('ljcpcblcx11000237','444aa8888','2010','Ford','Escape','980000','5000','Phibonacci85'),
-('fakevinexample','333bb8888','2015','Honda','civic','25000','5000','snanke19');
+VALUES('ljcpcblcx11000237','444aa8888','2010','Ford','Escape','980000','5000','cust001'),
+('fakevinexample','333bb8888','2015','Honda','civic','25000','5000','cust002');
 
 
 /******************************************************************************
@@ -114,29 +125,31 @@ VALUES('ljcpcblcx11000237','444aa8888','2010','Ford','Escape','980000','5000','P
 ******************************************************************************/
 
 CREATE TABLE Violation (
-	Violation_id VARCHAR(40) NOT NULL,
-    LicenseNumber VARCHAR(40) NOT NULL,
-    ViolationType VARCHAR(20) NULL,
-    DateOccured DATE NULL,
-    ConvictionDate DATE NULL,
+	Violation_id INT AUTO_INCREMENT NOT NULL COMMENT 'Violation primary key',
+    LicenseNumber VARCHAR(40) NOT NULL COMMENT 'violation foreign key',
+    ViolationType VARCHAR(20) NULL COMMENT 'Enum',
+    DateOccured DATE NULL COMMENT 'YYYY-MM-DD',
+    ConvictionDate DATE NULL COMMENT 'YYYY-MM-DD',
     PRIMARY KEY (Violation_id),
     FOREIGN KEY (LicenseNumber) 
 		REFERENCES Driver(LicenseNumber)
     
 );
+INSERT INTO Violation(LicenseNumber,ViolationType,DateOccured,ConvictionDate)
+VALUES('444aa8888','restricted','2015-09-09','2015-09-12');
 /******************************************************************************
 	TABLE: Customer
 ******************************************************************************/
 
 CREATE TABLE Customer (
-    UserName VARCHAR(20) NOT NULL,
-    Fname VARCHAR(20) NULL,
-    Lname VARCHAR(20) NULL,
-    Dob DATE NULL,
-    Address VARCHAR(100) NULL,
-    Phone INT NULL,
-    Email VARCHAR(250) NULL,
-    Ss VARCHAR(9) NULL,
+    UserName VARCHAR(20) NOT NULL  COMMENT 'Customer foreign key',
+    Fname VARCHAR(20) NULL COMMENT 'Customer First name',
+    Lname VARCHAR(20) NULL COMMENT 'Customer Last name',
+    Dob DATE NULL COMMENT 'YYYY-MM-DD',
+    Address VARCHAR(100) NULL COMMENT 'Customer billing address',
+    Phone INT NULL COMMENT 'Customer phone',
+    Email VARCHAR(250) NULL COMMENT 'Customers email address',
+    Ss VARCHAR(9) NULL COMMENT 'Customer SS',
     FOREIGN KEY (UserName)
         REFERENCES Users (UserName)
 );
@@ -150,13 +163,13 @@ VALUES
 ******************************************************************************/
 
 CREATE TABLE Agent (
-    UserName VARCHAR(20) NOT NULL,
-    Fname VARCHAR(20) NOT NULL,
-    Lname VARCHAR(20) NOT NULL,
-    Dob DATE,
-    Address VARCHAR(100) NULL,
-    Phone INT NULL,
-    PayGrade VARCHAR(2) NULL,
+    UserName VARCHAR(20) NOT NULL COMMENT 'agent primary key',
+    Fname VARCHAR(20) NOT NULL COMMENT 'agents First name',
+    Lname VARCHAR(20) NOT NULL COMMENT 'agents last name',
+    Dob DATE COMMENT 'YYYY-MM-DD',
+    Address VARCHAR(100) NULL COMMENT 'agent billing address',
+    Phone INT NULL COMMENT 'number to be reached at',
+    PayGrade VARCHAR(2) NULL COMMENT 'place holder for accounting added later',
     PRIMARY KEY (UserName),
     FOREIGN KEY (UserName)
         REFERENCES Users (UserName)
@@ -175,18 +188,20 @@ VALUES
 ******************************************************************************/
 
 CREATE TABLE Coverage (
-	Coverage_id int NOT NULL AUTO_INCREMENT,
-    UserName VARCHAR(20) NOT NULL,
-    CoverageType VARCHAR(60) NULL,
-    biStateMinimum VARCHAR(20) NULL,
-    pdStateMinimum INT DEFAULT 25,
-    MedPayOptions INT NULL,
-    DeductibleOptions VARCHAR(20),
+	Coverage_id int NOT NULL AUTO_INCREMENT COMMENT 'Coverage primary key',
+    UserName VARCHAR(20) NOT NULL COMMENT 'Coverage foreign key',
+    CoverageType VARCHAR(60) NULL COMMENT 'Enum',
+    biStateMinimum VARCHAR(20) NULL COMMENT 'State',
+    pdStateMinimum INT DEFAULT 25 COMMENT 'Dollars',
+    MedPayOptions INT NULL COMMENT 'Enum',
+    DeductibleOptions VARCHAR(20) COMMENT 'options',
     PRIMARY KEY(Coverage_id),
     FOREIGN KEY(UserName) REFERENCES Users (UserName)
     
 );
-
+INSERT INTO Coverage(UserName,CoverageType,biStateMinimum,pdStateMinimum,MedPayOptions,DeductibleOptions)
+VALUES('cust001','','','25','0','option1'),
+('cust002','full','lower','25','0','option1');
 
 
 /******************************************************************************
@@ -194,12 +209,12 @@ CREATE TABLE Coverage (
 ******************************************************************************/
 
 CREATE TABLE Accident (
-	Accident_id VARCHAR(20) NOT NULL,
-    LicenseNumber VARCHAR(40) NOT NULL,
-    Vin				VARCHAR(40) NULL,
-    AccidentType VARCHAR(40) NULL,
-    AccidentDate DATE NULL,
-    AtFault BOOLEAN NULL,
+	Accident_id INT AUTO_INCREMENT NOT NULL  COMMENT 'Accident primary key',
+    LicenseNumber VARCHAR(40) NOT NULL COMMENT 'Accident foreign key',
+    Vin				VARCHAR(40) NULL  COMMENT 'Accident foreign key',
+    AccidentType VARCHAR(40) NULL COMMENT 'ENUM',
+    AccidentDate DATE NULL COMMENT 'YYYY-MM-DD',
+    AtFault BOOLEAN NULL COMMENT 'default is 0',
     PRIMARY KEY (Accident_id),
     FOREIGN KEY (LicenseNumber) 
 		REFERENCES Driver(LicenseNumber),
@@ -207,7 +222,8 @@ CREATE TABLE Accident (
 		REFERENCES Vehicle(Vin)
     
 );
-
+INSERT INTO Accident(LicenseNumber,Vin,AccidentType,AccidentDate,AtFault)
+VALUES('333bb8888','fakevinexample','t-bone','2016-04-27','0');
 
 
 /******************************************************************************
@@ -215,11 +231,11 @@ CREATE TABLE Accident (
 ******************************************************************************/
 
 CREATE TABLE Policy (
-	Policy_id int NOT NULL AUTO_INCREMENT,
-    UserName VARCHAR(20) NOT NULL,
-    Vin VARCHAR(40) NOT NULL,
-    Name VARCHAR(20) NULL,
-    Rate DOUBLE DEFAULT 0.0,
+	Policy_id int NOT NULL AUTO_INCREMENT  COMMENT 'Policy primary key',
+    UserName VARCHAR(20) NOT NULL COMMENT 'Policy foreign key',
+    Vin VARCHAR(40) NOT NULL COMMENT 'Policy primary key',
+    Name VARCHAR(20) NULL COMMENT 'generic name for policy',
+    Rate DOUBLE DEFAULT 0.0 COMMENT 'rate for policy',
     PRIMARY KEY (Policy_id),
     FOREIGN KEY (UserName)
         REFERENCES Users (UserName),
@@ -706,3 +722,24 @@ END $$
 --     
 -- );
 -- 
+
+
+
+/*88888888888888
+
+
+KLUTS Insurance TEAM Database
+
+CLAYTON KNIGHT DB Manager,
+
+		DO NOT EDIT COPY AND PASTE 
+        
+        
+this file will create the data base use for our insuance application.
+*****if you want to run the application you must run this file*****
+it already adds the needed stored procedures for insert and select to interact with the database.
+
+the file also creates 2 customers as well as 4 agents(our names) 
+the one customer has a violation and supsention the other customer has accident
+
+******************************************************************************/
