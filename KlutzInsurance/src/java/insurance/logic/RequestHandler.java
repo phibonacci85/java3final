@@ -8,7 +8,6 @@ package insurance.logic;
 import insurance.data.UserDAO;
 import insurance.model.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author nh228u22
+ * @author John
  */
 @WebServlet(name = "RequestHandler", urlPatterns = {"/RequestHandler"})
 public class RequestHandler extends HttpServlet {
@@ -53,15 +52,29 @@ public class RequestHandler extends HttpServlet {
             case "validate_login":
                 String username = request.getParameter("username");
                 String password = request.getParameter("password");
-                //User curUser = UserDAO.getUserByUsername(username);
-                User curUser = new User();
-                curUser.setUsername(username);
-                session.setAttribute("user", curUser);
+                try {
+                    User curUser = UserDAO.getUserByUsername(username);
+                    //User curUser = new User();
+                    curUser.setUsername(username);
+                    session.setAttribute("user", curUser);
+                } catch (ClassNotFoundException e) {
+                    // Error logging in
+                    session.invalidate();
+                }
                 nextLocation = "/index.jsp";
                 break;
             case "logout":
                 session.invalidate();
                 nextLocation = "/index.jsp";
+                break;
+            case "create_user":
+                nextLocation = "/create_user.jsp";
+                break;
+            case "browse_policies":
+                nextLocation = "/browse_policies.jsp";
+                break;
+            case "start_policy":
+                nextLocation = "/start_policy.jsp";
                 break;
             default:
                 nextLocation = "/index.jsp";

@@ -10,10 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Insurance Home</title>
-        <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/default.css" rel="stylesheet" type="text/css"/>
+        <jsp:include page="/includes/head.html" />
         <link href="css/home.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
@@ -36,15 +33,54 @@
                 <ul class="menu">
                     <li><a href="RequestHandler?task=home">Home</a></li>
                     <li><a href="RequestHandler?task=profile">Profile</a></li>
-                    <li><a href="RequestHandler?task=login">Login</a></li>
-                    <li><a href="RequestHandler?task=logout">Logout</a></li>
+                    <c:choose>
+                        <c:when test="${user != null}">
+                            <li><a href="RequestHandler?task=logout">Logout</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li><a href="RequestHandler?task=login">Login</a></li>
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
             </div>
         </div>
-
+        <div class="callout large">
+            <div class="row column text-center">
+                <h1>Welcome to Klutz Insurance!</h1>
+                <c:choose>
+                    <c:when test="${user != null}">
+                        <p>Let us help you with the best insurance out there</p>
+                        <a href="RequestHandler?task=start_policy" class="button large">Start a Policy</a>
+                        <a href="RequestHandler?task=browse_policies" class="button large">Browse your Policies</a>
+                    </c:when>
+                    <c:otherwise>
+                        <p>Please Login or Create a new User</p>
+                        <a href="RequestHandler?task=create_user" class="button large">Create User</a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
         <div class="row">
-            <div class="center-text">
-                <h1>Home</h1>
+            <div class="medium-6 columns medium-push-6">
+                <img class="thumbnail" src="http://placehold.it/750x350">
+            </div>
+            <div class="medium-6 columns medium-pull-6">
+                <h2>Our Agency</h2>
+                <p>Vivamus luctus urna sed urna ultricies ac tempor dui sagittis. In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam porttitor mauris, quis sollicitudin sapien justo in libero. Vestibulum mollis mauris enim. Morbi euismod magna ac lorem rutrum elementum. Donec viverra auctor.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="medium-4 columns">
+                <h3>Photoshop</h3>
+                <p>Vivamus luctus urna sed urna ultricies ac tempor dui sagittis. In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna.</p>
+            </div>
+            <div class="medium-4 columns">
+                <h3>Javascript</h3>
+                <p>Vivamus luctus urna sed urna ultricies ac tempor dui sagittis. In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna.</p>
+            </div>
+            <div class="medium-4 columns">
+                <h3>Marketing</h3>
+                <p>Vivamus luctus urna sed urna ultricies ac tempor dui sagittis. In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna.</p>
             </div>
         </div>
         

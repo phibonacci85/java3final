@@ -17,8 +17,14 @@
         <ul class="menu">
             <li><a href="RequestHandler?task=home">Home</a></li>
             <li><a href="RequestHandler?task=profile">Profile</a></li>
-            <li><a href="RequestHandler?task=login">Login</a></li>
-            <li><a href="RequestHandler?task=logout">Logout</a></li>
+            <c:choose>
+                <c:when test="${user != null}">
+                    <li><a href="RequestHandler?task=logout">Logout</a></li>
+                </c:when>
+                <c:otherwise>
+                    <li><a href="RequestHandler?task=login">Login</a></li>
+                </c:otherwise>
+            </c:choose>
         </ul>
     </div>
 </div>
