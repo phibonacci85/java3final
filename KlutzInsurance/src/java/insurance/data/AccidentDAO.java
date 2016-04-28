@@ -59,4 +59,39 @@ public class AccidentDAO {
         }
         return accidents;
     }
+    
+    public static boolean createAccident(Accident accident)
+        throws ClassNotFoundException {
+        boolean succeeded = false;
+         //All connections go through DBConnection.getConnection();
+        Connection conn = null;
+        
+        try {
+            conn = DBConnection.getConnection();
+            String queryString = "sp_insertAccident(?,?,?,?,?);"; //question mark is a placeholder
+            CallableStatement callableStatement = conn.prepareCall(queryString);
+            
+            callableStatement.setString(1, accident.getLiscenseNumber());
+            callableStatement.setString(2, accident.getVin());
+            callableStatement.setString(3, accident.getType().toString());
+            callableStatement.setDate(4, (java.sql.Date) accident.getDate());
+            callableStatement.setBoolean(5, accident.isAtFault());
+            
+            succeeded = callableStatement.execute();
+            
+        } catch (SQLException ex) {
+            System.out.println("Technical Difficulties... ");
+            System.err.println(ex.getMessage());
+        }finally {
+            try {
+                if(conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Technical Difficulties");
+                System.err.println(ex.getMessage());
+            }
+        }
+        return succeeded;
+    }
 }

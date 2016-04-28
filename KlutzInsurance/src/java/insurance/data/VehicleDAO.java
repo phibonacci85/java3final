@@ -70,4 +70,41 @@ public class VehicleDAO {
     public static Vehicle getVehicle(String vin){
         return vehicle;
     }
+    
+    public static boolean createVehicle(Vehicle vehicle)
+        throws ClassNotFoundException {
+        boolean succeeded = false;
+         //All connections go through DBConnection.getConnection();
+        Connection conn = null;
+        
+        try {
+            conn = DBConnection.getConnection();
+            String queryString = "sp_insertVehicle(?,?,?,?,?,?,?);"; //question mark is a placeholder
+            CallableStatement callableStatement = conn.prepareCall(queryString);
+            
+            callableStatement.setString(1, vehicle.getVin());
+            callableStatement.setString(2, vehicle.getLiscenseNumber());
+            callableStatement.setString(3, vehicle.getMake());
+            callableStatement.setString(4, vehicle.getModel());
+            callableStatement.setInt(5, vehicle.getYear());
+            callableStatement.setInt(6, vehicle.getTotalMileage());
+            callableStatement.setInt(7, vehicle.getAnnualMileage());
+            
+            succeeded = callableStatement.execute();
+            
+        } catch (SQLException ex) {
+            System.out.println("Technical Difficulties... ");
+            System.err.println(ex.getMessage());
+        }finally {
+            try {
+                if(conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Technical Difficulties");
+                System.err.println(ex.getMessage());
+            }
+        }
+        return succeeded;
+    }
 }

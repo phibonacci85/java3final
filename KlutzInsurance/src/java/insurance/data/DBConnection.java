@@ -26,7 +26,7 @@ public class DBConnection {
             Class.forName("com.mysql.jdbc.Driver");
             
             conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost/j3project2?noAccessToProcedureBodies=true"
+                "jdbc:mysql://localhost/javaiiijstl?noAccessToProcedureBodies=true"
                 ,"root"
                 ,"password"
             );

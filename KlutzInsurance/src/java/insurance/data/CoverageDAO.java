@@ -66,4 +66,40 @@ public class CoverageDAO {
         }
         return coverages;
     }
+    
+    public static boolean createCoverage(Coverage coverage)
+        throws ClassNotFoundException {
+        boolean succeeded = false;
+         //All connections go through DBConnection.getConnection();
+        Connection conn = null;
+        
+        try {
+            conn = DBConnection.getConnection();
+            String queryString = "sp_insertCoverage(?,?,?,?,?,?);"; //question mark is a placeholder
+            CallableStatement callableStatement = conn.prepareCall(queryString);
+            
+            callableStatement.setString(1, coverage.getUsername());
+            callableStatement.setString(2, coverage.getType().toString());
+            callableStatement.setString(3, coverage.getBiStateMinimum());
+            callableStatement.setInt(4, coverage.getPdStateMinimum());
+            callableStatement.setString(5, coverage.getDeductibleOption().toString());
+            callableStatement.setInt(6, coverage.getMedPay());
+            
+            succeeded = callableStatement.execute();
+            
+        } catch (SQLException ex) {
+            System.out.println("Technical Difficulties... ");
+            System.err.println(ex.getMessage());
+        }finally {
+            try {
+                if(conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Technical Difficulties");
+                System.err.println(ex.getMessage());
+            }
+        }
+        return succeeded;
+    }
 }

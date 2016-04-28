@@ -62,4 +62,38 @@ public class SuspensionDAO {
         }
         return suspensions;
     }
+    
+    public static boolean createSuspension(Suspension suspension)
+        throws ClassNotFoundException {
+        boolean succeeded = false;
+         //All connections go through DBConnection.getConnection();
+        Connection conn = null;
+        
+        try {
+            conn = DBConnection.getConnection();
+            String queryString = "sp_insertSuspension(?,?,?,?);"; //question mark is a placeholder
+            CallableStatement callableStatement = conn.prepareCall(queryString);
+            
+            callableStatement.setString(1, suspension.getLiscenseNumber());
+            callableStatement.setString(2, suspension.getType().toString());
+            callableStatement.setDate(3, (java.sql.Date) suspension.getDateStart());
+            callableStatement.setDate(4, (java.sql.Date) suspension.getDateEnd());
+            
+            succeeded = callableStatement.execute();
+            
+        } catch (SQLException ex) {
+            System.out.println("Technical Difficulties... ");
+            System.err.println(ex.getMessage());
+        }finally {
+            try {
+                if(conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Technical Difficulties");
+                System.err.println(ex.getMessage());
+            }
+        }
+        return succeeded;
+    }
 }

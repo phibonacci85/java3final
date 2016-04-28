@@ -62,4 +62,38 @@ public class ViolationDAO {
         }
         return violations;
     }
+    
+    public static boolean createViolation(Violation violation)
+        throws ClassNotFoundException {
+        boolean succeeded = false;
+         //All connections go through DBConnection.getConnection();
+        Connection conn = null;
+        
+        try {
+            conn = DBConnection.getConnection();
+            String queryString = "sp_insertViolation(?,?,?,?,?,?,?);"; //question mark is a placeholder
+            CallableStatement callableStatement = conn.prepareCall(queryString);
+            
+            callableStatement.setString(1, violation.getLiscenseNumber());
+            callableStatement.setString(2, violation.getType().toString());
+            callableStatement.setDate(4, (java.sql.Date) violation.getConvictionDate());
+            callableStatement.setDate(3, (java.sql.Date) violation.getDateOccured());
+            
+            succeeded = callableStatement.execute();
+            
+        } catch (SQLException ex) {
+            System.out.println("Technical Difficulties... ");
+            System.err.println(ex.getMessage());
+        }finally {
+            try {
+                if(conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Technical Difficulties");
+                System.err.println(ex.getMessage());
+            }
+        }
+        return succeeded;
+    }
 }

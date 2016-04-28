@@ -64,7 +64,7 @@ public class PolicyDAO {
         return policies;
     }
     
-    public static boolean createPolicy(String createUsername, String createPassword)
+    public static boolean createPolicy(Policy policy)
         throws ClassNotFoundException {
         boolean succeeded = false;
          //All connections go through DBConnection.getConnection();
@@ -72,18 +72,15 @@ public class PolicyDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "call sp_insertUsername(?,?);"; //question mark is a placeholder
+            String queryString = "sp_insertDriver(?,?,?,?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
-            callableStatement.setString(1, createUsername);
-            callableStatement.setString(2, createPassword);
+            callableStatement.setString(1, policy.getUsername());
+            callableStatement.setString(2, policy.getVin());
+            callableStatement.setString(3, policy.getName());
+            callableStatement.setDouble(4, policy.getRate());
             
-            if(!callableStatement.execute()){
-                int updateCount = callableStatement.getUpdateCount();
-                if(updateCount == 1) {
-                    succeeded = true;
-                }
-            }
+            succeeded = callableStatement.execute();
             
         } catch (SQLException ex) {
             System.out.println("Technical Difficulties... ");

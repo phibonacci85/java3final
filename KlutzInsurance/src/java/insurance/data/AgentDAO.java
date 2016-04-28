@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package insurance.data;
 
-import insurance.model.Coverage;
-import insurance.model.CoverageType;
-import insurance.model.DeductibleOption;
-import insurance.model.Driver;
+import insurance.model.Accident;
+import insurance.model.Agent;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,39 +16,35 @@ import java.util.List;
 
 /**
  *
- * @author NH228U27
+ * @author Kristi
  */
-public class DriverDAO {
-    private static Driver driver;
-    private static List<Driver> drivers = new ArrayList<>();
+public class AgentDAO {
     
-    public static Driver getDriver(String liscenseNumber){
-        return driver;
-    }
+    Agent agent = new Agent();
     
-    public static List<Driver> getVehicleDrivers(int vehicleId)
+    public Agent getUserAccidents(String username)
         throws ClassNotFoundException{
-        drivers = new ArrayList<>();
          //All connections go through DBConnection.getConnection();
         Connection conn = null;
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectDriversByVin(?);"; //question mark is a placeholder
+            String queryString = "sp_selectAgentByUsername(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
-            int id = vehicleId;
+            String id = username;
             
-            callableStatement.setInt(1, id);
+            callableStatement.setString(1, id);
             ResultSet resultSet = callableStatement.executeQuery();
                     
             //set employee object to the result set from the query
             while(resultSet.next()) {
-                Driver driver = new Driver();
-                driver.setLicenseNumber(resultSet.getString(1));
-                driver.setFirstName(resultSet.getString(2));
-                driver.setLastName(resultSet.getString(3));
-                //driver.setUsage(VehicleUsage.valueOf(resultSet.getString(4)));
-                drivers.add(driver);
+                agent.setUsername(resultSet.getString(1));
+                agent.setFirstname(resultSet.getString(2));
+                agent.setLastname(resultSet.getString(3));
+                agent.setDOB(resultSet.getDate(4));
+                agent.setAddress(resultSet.getString(5));
+                agent.setPhone(resultSet.getInt(6));
+                agent.setPayGrade(resultSet.getString(7));
             } 
         } catch (SQLException ex) {
             System.out.println("Technical Difficulties... ");
@@ -66,10 +59,10 @@ public class DriverDAO {
                 System.err.println(ex.getMessage());
             }
         }
-        return drivers;
+        return agent;
     }
     
-    public static boolean createDriver(Driver driver)
+    public static boolean createAgent(Agent agent)
         throws ClassNotFoundException {
         boolean succeeded = false;
          //All connections go through DBConnection.getConnection();
@@ -77,13 +70,15 @@ public class DriverDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_insertDriver(?,?,?,?);"; //question mark is a placeholder
+            String queryString = "sp_insertAgent(?,?,?,?,?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
-            callableStatement.setString(1, driver.getLicenseNumber());
-            callableStatement.setString(2, driver.getFirstName());
-            callableStatement.setString(3, driver.getLastName());
-            callableStatement.setString(4, driver.getUsage().toString());
+            callableStatement.setString(1, agent.getUsername());
+            callableStatement.setString(2, agent.getFirstname());
+            callableStatement.setDate(3, (java.sql.Date) agent.getDOB());
+            callableStatement.setString(4, agent.getAddress());
+            callableStatement.setInt(5, agent.getPhone());
+            callableStatement.setString(6, agent.getPayGrade());
             
             succeeded = callableStatement.execute();
             
