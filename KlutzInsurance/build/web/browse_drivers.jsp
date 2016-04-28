@@ -17,18 +17,22 @@
         <h1 class="text-center">Browse Drivers</h1>
         <table border="1" cellpadding="10">
             <thead>
-                <th>Policy Id</th>
-                <th>VIN</th>
-                <th>Name</th>
-                <th>Rate</th>
+                <th>License Number</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Vehicle Usage</th>
+                <th>Date</th>
+                <th>Username</th>
             </thead>
             <tbody>
-                <c:forEach items="${policies}" var="policy" >
+                <c:forEach items="${drivers}" var="driver" >
                     <tr>
-                        <td>${policy.policyId}</td>
-                        <td>${policy.vin}</td>
-                        <td>${policy.name}</td>
-                        <td>${policy.rate}</td>
+                        <td>${driver.licenseNumber}</td>
+                        <td>${driver.firstName}</td>
+                        <td>${driver.lastName}</td>
+                        <td>${driver.usage}</td>
+                        <td>${driver.DOB}</td>
+                        <td>${driver.username}</td>
                     </tr>
                 </c:forEach>
             </tbody>

@@ -113,15 +113,10 @@ public class RequestHandler extends HttpServlet {
                     nextLocation = "/index.jsp";
                 } else {
                     try {
-                        List<Driver> drivers = DriverDAO.getUserDrivers(curUser.getUsername());
-                        List<Vehicle> vehicles = VehicleDAO.getUserVehicles(curUser.getUsername());
-                        List<Policy> policies = PolicyDAO.getUserPolicies(curUser.getUsername());
-                        if(null != drivers && drivers.size() > 0)
-                            request.setAttribute("drivers", drivers);
-                        if(null != vehicles && vehicles.size() > 0)
-                            request.setAttribute("vehicles", vehicles);
-                        if(null != policies && policies.size() > 0)
-                            request.setAttribute("policies", policies);
+                        String vin = request.getParameter("vin");
+                        Vehicle vehicle = VehicleDAO.getVehicleByVin(vin);
+                        if(null != vehicle)
+                            request.setAttribute("vehicle", vehicle);
                     } catch (ClassNotFoundException e) {
                         //
                     }
@@ -266,6 +261,25 @@ public class RequestHandler extends HttpServlet {
                     } catch (ClassNotFoundException e) {
                         // couldn't create the policy
                     }
+                    nextLocation = "/index.jsp";
+                }
+                break;
+            case "attach_driver_to_vehicle":
+                if(curUser == null) {
+                    nextLocation = "/index.jsp";
+                } else {
+                    /*
+                    Policy policy = new Policy();
+                    String attachVehiclePolicyId = request.getParameter("attachVehiclePolicyId");
+                    String attachVehicleVin = request.getParameter("attachVehicleVin");
+                    double createPolicyRate = Double.parseDouble((String)request.getParameter("createPolicyRate"));
+                    
+                    try {
+                        PolicyDAO.createPolicy(policy);
+                    } catch (ClassNotFoundException e) {
+                        // couldn't create the policy
+                    }
+                    */
                     nextLocation = "/index.jsp";
                 }
                 break;

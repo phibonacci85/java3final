@@ -47,8 +47,8 @@ CREATE TABLE Driver (
     LicenseNumber VARCHAR(40) NOT NULL COMMENT 'Driver primary key',
     Fname VARCHAR(40) NOT NULL COMMENT 'Drivers First Name',
     Lname VARCHAR(40) NOT NULL COMMENT 'Drivers Last Name',
-    Usages VARCHAR(40) NOT NULL  COMMENT 'Enum',
-    DOB DATE  COMMENT 'YYYY-MM-DD',
+    Usages VARCHAR(40) NOT NULL COMMENT 'Enum',
+    DOB DATE COMMENT 'YYYY-MM-DD',
     Username VARCHAR(20) NULL COMMENT 'added at programers request',
     PRIMARY KEY (LicenseNumber)
 );
@@ -64,15 +64,14 @@ VALUES
 ******************************************************************************/
 
 CREATE TABLE Suspension (
-	Suspension_id INT AUTO_INCREMENT NOT NULL  COMMENT 'Suspension primary key',
-    LicenseNumber VARCHAR(40) NOT NULL  COMMENT 'Suspension Foreign key',
-    SuspensionType VARCHAR(20) NULL  COMMENT 'ENUM',
-    DateStart DATE NULL  COMMENT 'YYYY-MM-DD',
+    Suspension_id INT AUTO_INCREMENT NOT NULL COMMENT 'Suspension primary key',
+    LicenseNumber VARCHAR(40) NOT NULL COMMENT 'Suspension Foreign key',
+    SuspensionType VARCHAR(20) NULL COMMENT 'ENUM',
+    DateStart DATE NULL COMMENT 'YYYY-MM-DD',
     DateEnd DATE NULL COMMENT 'YYYY-MM-DD',
-    PRIMARY KEY(Suspension_id),
-    FOREIGN KEY (LicenseNumber) 
-		REFERENCES Driver(LicenseNumber)
-    
+    PRIMARY KEY (Suspension_id),
+    FOREIGN KEY (LicenseNumber)
+        REFERENCES Driver (LicenseNumber)
 );
 
 INSERT INTO Suspension(LicenseNumber,SuspensionType,DateStart,DateEnd)
@@ -84,8 +83,7 @@ VALUES('444aa8888','dui','2016-01-01','2016-12-12');
 CREATE TABLE Users (
     UserName VARCHAR(20) NOT NULL COMMENT 'Users primary key',
     Password VARCHAR(20) NOT NULL COMMENT 'passwords are generic for sample data',
-    PRIMARY KEY (UserName )
-    
+    PRIMARY KEY (UserName)
 );
 INSERT INTO Users (userName,Password) 
 VALUES 
@@ -102,17 +100,17 @@ VALUES
 ******************************************************************************/
 
 CREATE TABLE Vehicle (
-	Vin VARCHAR(40) NOT NULL COMMENT 'Driver primary key',
-    LicenseNumber VARCHAR(40)NULL COMMENT 'Driver Foreign key',
+    Vin VARCHAR(40) NOT NULL COMMENT 'Driver primary key',
+    LicenseNumber VARCHAR(40) NULL COMMENT 'Driver Foreign key',
     Year INT DEFAULT 0 COMMENT 'year of car',
     Make VARCHAR(20) NULL COMMENT 'the make  of car',
     Model VARCHAR(20) NULL COMMENT 'the model of car',
-    TotalMileage INT DEFAULT 0  COMMENT 'mileage of car',
+    TotalMileage INT DEFAULT 0 COMMENT 'mileage of car',
     AnnualMileage INT DEFAULT 0 COMMENT 'miles driven yearly',
     PRIMARY KEY (Vin),
     Username VARCHAR(20) NULL,
-    FOREIGN KEY (LicenseNumber) 
-		REFERENCES Driver(LicenseNumber)
+    FOREIGN KEY (LicenseNumber)
+        REFERENCES Driver (LicenseNumber)
 );
 
 INSERT INTO Vehicle(Vin,LicenseNumber,Year,Make,Model,TotalMileage,AnnualMileage,Username)
@@ -125,15 +123,14 @@ VALUES('ljcpcblcx11000237','444aa8888','2010','Ford','Escape','980000','5000','c
 ******************************************************************************/
 
 CREATE TABLE Violation (
-	Violation_id INT AUTO_INCREMENT NOT NULL COMMENT 'Violation primary key',
+    Violation_id INT AUTO_INCREMENT NOT NULL COMMENT 'Violation primary key',
     LicenseNumber VARCHAR(40) NOT NULL COMMENT 'violation foreign key',
     ViolationType VARCHAR(20) NULL COMMENT 'Enum',
     DateOccured DATE NULL COMMENT 'YYYY-MM-DD',
     ConvictionDate DATE NULL COMMENT 'YYYY-MM-DD',
     PRIMARY KEY (Violation_id),
-    FOREIGN KEY (LicenseNumber) 
-		REFERENCES Driver(LicenseNumber)
-    
+    FOREIGN KEY (LicenseNumber)
+        REFERENCES Driver (LicenseNumber)
 );
 INSERT INTO Violation(LicenseNumber,ViolationType,DateOccured,ConvictionDate)
 VALUES('444aa8888','restricted','2015-09-09','2015-09-12');
@@ -142,7 +139,7 @@ VALUES('444aa8888','restricted','2015-09-09','2015-09-12');
 ******************************************************************************/
 
 CREATE TABLE Customer (
-    UserName VARCHAR(20) NOT NULL  COMMENT 'Customer foreign key',
+    UserName VARCHAR(20) NOT NULL COMMENT 'Customer foreign key',
     Fname VARCHAR(20) NULL COMMENT 'Customer First name',
     Lname VARCHAR(20) NULL COMMENT 'Customer Last name',
     Dob DATE NULL COMMENT 'YYYY-MM-DD',
@@ -188,16 +185,16 @@ VALUES
 ******************************************************************************/
 
 CREATE TABLE Coverage (
-	Coverage_id int NOT NULL AUTO_INCREMENT COMMENT 'Coverage primary key',
+    Coverage_id INT NOT NULL AUTO_INCREMENT COMMENT 'Coverage primary key',
     UserName VARCHAR(20) NOT NULL COMMENT 'Coverage foreign key',
     CoverageType VARCHAR(60) NULL COMMENT 'Enum',
     biStateMinimum VARCHAR(20) NULL COMMENT 'State',
     pdStateMinimum INT DEFAULT 25 COMMENT 'Dollars',
     MedPayOptions INT NULL COMMENT 'Enum',
     DeductibleOptions VARCHAR(20) COMMENT 'options',
-    PRIMARY KEY(Coverage_id),
-    FOREIGN KEY(UserName) REFERENCES Users (UserName)
-    
+    PRIMARY KEY (Coverage_id),
+    FOREIGN KEY (UserName)
+        REFERENCES Users (UserName)
 );
 INSERT INTO Coverage(UserName,CoverageType,biStateMinimum,pdStateMinimum,MedPayOptions,DeductibleOptions)
 VALUES('cust001','','','25','0','option1'),
@@ -209,18 +206,17 @@ VALUES('cust001','','','25','0','option1'),
 ******************************************************************************/
 
 CREATE TABLE Accident (
-	Accident_id INT AUTO_INCREMENT NOT NULL  COMMENT 'Accident primary key',
+    Accident_id INT AUTO_INCREMENT NOT NULL COMMENT 'Accident primary key',
     LicenseNumber VARCHAR(40) NOT NULL COMMENT 'Accident foreign key',
-    Vin				VARCHAR(40) NULL  COMMENT 'Accident foreign key',
+    Vin VARCHAR(40) NULL COMMENT 'Accident foreign key',
     AccidentType VARCHAR(40) NULL COMMENT 'ENUM',
     AccidentDate DATE NULL COMMENT 'YYYY-MM-DD',
     AtFault BOOLEAN NULL COMMENT 'default is 0',
     PRIMARY KEY (Accident_id),
-    FOREIGN KEY (LicenseNumber) 
-		REFERENCES Driver(LicenseNumber),
-	FOREIGN KEY (Vin) 
-		REFERENCES Vehicle(Vin)
-    
+    FOREIGN KEY (LicenseNumber)
+        REFERENCES Driver (LicenseNumber),
+    FOREIGN KEY (Vin)
+        REFERENCES Vehicle (Vin)
 );
 INSERT INTO Accident(LicenseNumber,Vin,AccidentType,AccidentDate,AtFault)
 VALUES('333bb8888','fakevinexample','t-bone','2016-04-27','0');
@@ -231,7 +227,7 @@ VALUES('333bb8888','fakevinexample','t-bone','2016-04-27','0');
 ******************************************************************************/
 
 CREATE TABLE Policy (
-	Policy_id int NOT NULL AUTO_INCREMENT  COMMENT 'Policy primary key',
+    Policy_id INT NOT NULL AUTO_INCREMENT COMMENT 'Policy primary key',
     UserName VARCHAR(20) NOT NULL COMMENT 'Policy foreign key',
     Vin VARCHAR(40) NOT NULL COMMENT 'Policy primary key',
     Name VARCHAR(20) NULL COMMENT 'generic name for policy',
@@ -239,8 +235,8 @@ CREATE TABLE Policy (
     PRIMARY KEY (Policy_id),
     FOREIGN KEY (UserName)
         REFERENCES Users (UserName),
-	FOREIGN KEY (Vin) 
-		REFERENCES Vehicle(Vin)
+    FOREIGN KEY (Vin)
+        REFERENCES Vehicle (Vin)
 );
 INSERT INTO Policy(UserName,Vin,Name,Rate)
 VALUES ('cust001','fakevinexample','','0.0'),
@@ -652,7 +648,7 @@ DELIMITER
 
 DELIMITER $$
 CREATE PROCEDURE sp_selectVehicleByVin
-(IN VinP int)
+(IN VinP VARCHAR(20))
 BEGIN
   SELECT * FROM vehicle
   WHERE vin = VinP;

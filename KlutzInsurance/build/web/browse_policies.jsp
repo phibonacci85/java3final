@@ -17,7 +17,7 @@
         <h1 class="text-center">Browse Policies</h1>
         <table border="1" cellpadding="10">
             <thead>
-                <th>Policy Id</th>
+                <th class="text-center">Policy Id</th>
                 <th>VIN</th>
                 <th>Name</th>
                 <th>Rate</th>
@@ -25,8 +25,8 @@
             <tbody>
                 <c:forEach items="${policies}" var="policy" >
                     <tr>
-                        <td>${policy.policyId}</td>
-                        <td>${policy.vin}</td>
+                        <td class="text-center">${policy.policyId}</td>
+                        <td><a href="RequestHandler?task=browse_vehicles&vin=${policy.vin}">${policy.vin}</a></td>
                         <td>${policy.name}</td>
                         <td>${policy.rate}</td>
                     </tr>
