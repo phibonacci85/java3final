@@ -24,7 +24,7 @@ public class VehicleDAO {
     
     public static Vehicle getVehicleByVin(String vin)
         throws ClassNotFoundException{
-        vehicles = new ArrayList<>();
+        vehicle = new Vehicle();
          //All connections go through DBConnection.getConnection();
         Connection conn = null;
         

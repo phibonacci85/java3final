@@ -18,19 +18,55 @@
         <div class="row">
             <div class="large-10 large-centered">
                 <hr>
-                <label>VIN: </label><span>${vehicle.vin}</span>
+                <div class="large-6 columns">
+                    <h4>VIN: </h4>
+                </div>
+                <div class="large-6 columns text-right">
+                    <h5>${vehicle.vin}</h5>
+                </div>
                 <hr>
-                <label>License Number: </label><span>${vehicle.licenseNumber}</span>
+                <div class="large-6 columns">
+                    <h4>License Number: </h4>
+                </div>
+                <div class="large-6 columns text-right">
+                    <h5>${vehicle.licenseNumber}</h5>
+                </div>
                 <hr>
-                <label>Make: </label><span>${vehicle.make}</span>
+                <div class="large-6 columns">
+                    <h4>Make: </h4>
+                </div>
+                <div class="large-6 columns text-right">
+                    <h5>${vehicle.make}</h5>
+                </div>
                 <hr>
-                <label>Model: </label><span>${vehicle.model}</span>
+                <div class="large-6 columns">
+                    <h4>Model: </h4>
+                </div>
+                <div class="large-6 columns text-right">
+                    <h5>${vehicle.model}</h5>
+                </div>
                 <hr>
-                <label>Year: </label><span>${vehicle.year}</span>
+                <div class="large-6 columns">
+                    <h4>Year: </h4>
+                </div>
+                <div class="large-6 columns text-right">
+                    <h5>${vehicle.year}</h5>
+                </div>
                 <hr>
-                <label>Total Mileage: </label><span>${vehicle.totalMileage}</span>
+                <div class="large-6 columns">
+                    <h4>Total Mileage: </h4>
+                </div>
+                <div class="large-6 columns text-right">
+                    <h5>${vehicle.totalMileage}</h5>
+                </div>
                 <hr>
-                <label>Annual Mileage: </label><span>${vehicle.annualMileage}</span>
+                <div class="large-6 columns">
+                    <h4>Annual Mileage: </h4>
+                </div>
+                <div class="large-6 columns text-right">
+                    <h5>${vehicle.annualMileage}</h5>
+                </div>
+                <hr>
             </div>
         </div>
     </body>
