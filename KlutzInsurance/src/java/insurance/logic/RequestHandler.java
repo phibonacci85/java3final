@@ -92,14 +92,17 @@ public class RequestHandler extends HttpServlet {
                 if(curUser == null) {
                     nextLocation = "/index.jsp";
                 } else {
-                    ArrayList<Policy> policies = new ArrayList();
-                    Policy policy1 = new Policy();
-                    policy1.setPolicyId(1);
-                    Policy policy2 = new Policy();
-                    policy2.setPolicyId(2);
-                    policies.add(policy1);
-                    policies.add(policy2);
-                    request.setAttribute("policies", policies);
+                    try {
+                        List<Driver> drivers = DriverDAO.getDrivers();
+                        List<Vehicle> vehicles = VehicleDAO.getUserVehicles(curUser.getUsername());
+                        List<Policy> policies = PolicyDAO.getPolicies();
+                        if(null != drivers && drivers.size() > 0)
+                            request.setAttribute("drivers", drivers);
+                        if(null != vehicles && vehicles.size() > 0)
+                            request.setAttribute("vehicles", vehicles);
+                    } catch (ClassNotFoundException e) {
+                        //
+                    }
                     nextLocation = "/browse_policies.jsp";
                 }
                 break;
@@ -124,14 +127,42 @@ public class RequestHandler extends HttpServlet {
                 if(curUser == null) {
                     nextLocation = "/index.jsp";
                 } else {
+                    String createDriverLicenseNumber = request.getParameter("createDriverLicenseNumber");
+                    String createDriverFirstName = request.getParameter("createDriverFirstName");
+                    String createDriverLastName = request.getParameter("createDriverLastName");
+                    String createDriverUsage = request.getParameter("createDriverUsage");
+                    
                     Driver driver = new Driver();
-                    driver.setLicenseNumber("339XX1234");
-                    driver.setFirstName("Bruce");
-                    driver.setLastName("Wayne");
-                    driver.setAge(35);
-                    driver.setUsage(VehicleUsage.PLEASURE);
+                    driver.setLicenseNumber(createDriverLicenseNumber);
+                    driver.setFirstName(createDriverFirstName);
+                    driver.setLastName(createDriverLastName);
+                    
+                    switch(createDriverUsage) {
+                        case "WORK":
+                            driver.setUsage(VehicleUsage.WORK);
+                            break;
+                        case "SCHOOL":
+                            driver.setUsage(VehicleUsage.SCHOOL);
+                            break;
+                        case "BUSINESS":
+                            driver.setUsage(VehicleUsage.BUSINESS);
+                            break;
+                        case "PLEASURE":
+                            driver.setUsage(VehicleUsage.PLEASURE);
+                            break;
+                        default:
+                            driver.setUsage(VehicleUsage.PLEASURE);
+                    }
+                    
                     try {
                         DriverDAO.createDriver(driver);
+                        
+                        List<Driver> drivers = DriverDAO.getDrivers();
+                        List<Vehicle> vehicles = VehicleDAO.getUserVehicles(curUser.getUsername());
+                        if(null != drivers && drivers.size() > 0)
+                            request.setAttribute("drivers", drivers);
+                        if(null != vehicles && vehicles.size() > 0)
+                            request.setAttribute("vehicles", vehicles);
                     } catch (ClassNotFoundException e) {
                         // couldn't create the policy
                     }
@@ -142,6 +173,7 @@ public class RequestHandler extends HttpServlet {
                 if(curUser == null) {
                     nextLocation = "/index.jsp";
                 } else {
+                    String createVehicleLicenseNumber = request.getParameter("createVehicleLicenseNumber");
                     Vehicle vehicle = new Vehicle();
                     vehicle.setVin("ABC1234");
                     vehicle.setLiscenseNumber("339XX1234");
@@ -152,6 +184,13 @@ public class RequestHandler extends HttpServlet {
                     vehicle.setAnnualMileage(20000);
                     try {
                         VehicleDAO.createVehicle(vehicle);
+                        
+                        List<Driver> drivers = DriverDAO.getDrivers();
+                        List<Vehicle> vehicles = VehicleDAO.getUserVehicles(curUser.getUsername());
+                        if(null != drivers && drivers.size() > 0)
+                            request.setAttribute("drivers", drivers);
+                        if(null != vehicles && vehicles.size() > 0)
+                            request.setAttribute("vehicles", vehicles);
                     } catch (ClassNotFoundException e) {
                         // couldn't create the policy
                     }

@@ -18,24 +18,35 @@
         <div class="row">
             <div class="large-6 columns">
                 <form action="RequestHandler?task=create_driver" method="post">
-                    <label>Name
-                        <input name="policyName" type="text" />
+                    <label>License Number
+                        <input name="createDriverLicenseNumber" type="text" />
                     </label>
-                    <label>Rate
-                        <input name="policyRate" type="number" min="0" value="0"/>
+                    <label>First Name
+                        <input name="createDriverFirstName" type="text" />
                     </label>
-                    <label>Vin
-                        <input name="policyVin" type="text" />
+                    <label>Last Name
+                        <input name="createDriverLastName" type="text" />
+                    </label>
+                    <label>
+                        <select name="createDriverUsage">
+                            <option val="WORK">Work</option>
+                            <option val="SCHOOL">School</option>
+                            <option val="BUSINESS">Business</option>
+                            <option val="PLEASURE">Pleasure</option>
+                        </select>
                     </label>
                     <input type="submit" class="button large" value="Create Driver" />
                 </form>
             </div>
+        </div>
+        <hr>
+        <div class="row">
             <c:choose>
                 <c:when test="${drivers != null}">
                     <div class="large-6 columns">
                         <form action="RequestHandler?task=create_vehicle" method="post">
                             <label>Driver
-                                <select>
+                                <select name="createVehicleLicenseNumber">
                                     <c:forEach items="${drivers}" var="driver" >
                                         <option val="${driver.licenseNumber}">${driver.firstName} ${driver.lastName}</option>
                                     </c:forEach>
@@ -53,13 +64,14 @@
                 </c:otherwise>
             </c:choose>
         </div>
+        <hr>
         <div class="row">
         <c:choose>
             <c:when test="${drivers != null}">
                 <div class="large-6 columns">
                     <form action="RequestHandler?task=create_policy" method="post">
                         <label>Vehicles
-                            <select>
+                            <select name="createVehicleVin">
                                 <c:forEach items="${vehicles}" var="vehicle" >
                                     <option val="${vehicle.vin}">${vehicle.make} ${vehicle.model}</option>
                                 </c:forEach>

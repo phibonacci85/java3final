@@ -34,7 +34,7 @@ public class Driver {
             case SCHOOL:
                 
                 break;
-            case BUISNESS:
+            case BUSINESS:
                 
                 break;
             default: //PLEASURE

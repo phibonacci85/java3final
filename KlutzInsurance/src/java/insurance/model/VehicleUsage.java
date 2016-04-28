@@ -13,6 +13,6 @@ package insurance.model;
 public enum VehicleUsage {
     WORK,
     SCHOOL,
-    BUISNESS,
+    BUSINESS,
     PLEASURE
 }
