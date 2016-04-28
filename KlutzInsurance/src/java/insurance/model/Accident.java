@@ -16,15 +16,15 @@ import java.util.Date;
  * @author nh228u27
  */
 public class Accident {
-    private String accidentId;
+    private int accidentId;
     private String liscenseNumber;
     private String vin;
     private AccidentType type;
     private Date date;
     private boolean atFault;
     
-    public Driver driver = DriverDAO.getDriver(liscenseNumber);
-    public Vehicle vehicle = VehicleDAO.getVehicle(vin);
+    //public Driver driver = DriverDAO.getDriver(liscenseNumber);
+    //public Vehicle vehicle = VehicleDAO.getVehicle(vin);
 
     public Accident() {}
     
@@ -76,14 +76,14 @@ public class Accident {
     /**
      * @return the accidentId
      */
-    public String getAccidentId() {
+    public int getAccidentId() {
         return accidentId;
     }
 
     /**
      * @param accidentId the accidentId to set
      */
-    public void setAccidentId(String accidentId) {
+    public void setAccidentId(int accidentId) {
         this.accidentId = accidentId;
     }
 

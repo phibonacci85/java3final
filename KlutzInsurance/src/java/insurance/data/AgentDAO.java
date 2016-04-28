@@ -22,47 +22,6 @@ public class AgentDAO {
     
     private static List<Agent> agents = new ArrayList<>();
     
-    public static List<Agent> getAgents()
-        throws ClassNotFoundException {
-        agents = new ArrayList<>();
-         //All connections go through DBConnection.getConnection();
-        Connection conn = null;
-        
-        try {
-            conn = DBConnection.getConnection();
-            String queryString = "sp_selectAgents();"; //question mark is a placeholder
-            CallableStatement callableStatement = conn.prepareCall(queryString);
-            
-            ResultSet resultSet = callableStatement.executeQuery();
-                    
-            //set employee object to the result set from the query
-            while(resultSet.next()) {
-                Agent agent = new Agent();
-                agent.setUsername(resultSet.getString(1));
-                agent.setFirstname(resultSet.getString(2));
-                agent.setLastname(resultSet.getString(3));
-                agent.setDOB(resultSet.getDate(4));
-                agent.setAddress(resultSet.getString(5));
-                agent.setPhone(resultSet.getInt(6));
-                agent.setPayGrade(resultSet.getString(7));
-                agents.add(agent);
-            } 
-        } catch (SQLException ex) {
-            System.out.println("Technical Difficulties... ");
-            System.err.println(ex.getMessage());
-        }finally {
-            try {
-                if(conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println("Technical Difficulties");
-                System.err.println(ex.getMessage());
-            }
-        }
-        return agents;
-    }
-    
     public Agent getUserAgent(String username)
         throws ClassNotFoundException{
          //All connections go through DBConnection.getConnection();
@@ -102,6 +61,47 @@ public class AgentDAO {
             }
         }
         return agent;
+    }
+    
+    public static List<Agent> getAgents()
+        throws ClassNotFoundException {
+        agents = new ArrayList<>();
+         //All connections go through DBConnection.getConnection();
+        Connection conn = null;
+        
+        try {
+            conn = DBConnection.getConnection();
+            String queryString = "sp_selectAgents();"; //question mark is a placeholder
+            CallableStatement callableStatement = conn.prepareCall(queryString);
+            
+            ResultSet resultSet = callableStatement.executeQuery();
+                    
+            //set employee object to the result set from the query
+            while(resultSet.next()) {
+                Agent agent = new Agent();
+                agent.setUsername(resultSet.getString(1));
+                agent.setFirstname(resultSet.getString(2));
+                agent.setLastname(resultSet.getString(3));
+                agent.setDOB(resultSet.getDate(4));
+                agent.setAddress(resultSet.getString(5));
+                agent.setPhone(resultSet.getInt(6));
+                agent.setPayGrade(resultSet.getString(7));
+                agents.add(agent);
+            } 
+        } catch (SQLException ex) {
+            System.out.println("Technical Difficulties... ");
+            System.err.println(ex.getMessage());
+        }finally {
+            try {
+                if(conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Technical Difficulties");
+                System.err.println(ex.getMessage());
+            }
+        }
+        return agents;
     }
     
     public static boolean createAgent(Agent agent)

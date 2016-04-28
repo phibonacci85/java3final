@@ -6,10 +6,8 @@
 
 package insurance.data;
 
-import insurance.model.Coverage;
-import insurance.model.CoverageType;
-import insurance.model.DeductibleOption;
 import insurance.model.Driver;
+import insurance.model.VehicleUsage;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -25,8 +23,80 @@ public class DriverDAO {
     private static Driver driver;
     private static List<Driver> drivers = new ArrayList<>();
     
-    public static Driver getDriver(String liscenseNumber){
+    public static Driver getDriverByLiscenseNumber(String liscenseNumber)
+        throws ClassNotFoundException{
+        drivers = new ArrayList<>();
+         //All connections go through DBConnection.getConnection();
+        Connection conn = null;
+        
+        try {
+            conn = DBConnection.getConnection();
+            String queryString = "sp_selectDriversByLiscenseNumber(?);"; //question mark is a placeholder
+            CallableStatement callableStatement = conn.prepareCall(queryString);
+            String id = liscenseNumber;
+            
+            callableStatement.setString(1, id);
+            ResultSet resultSet = callableStatement.executeQuery();
+                    
+            //set employee object to the result set from the query
+            while(resultSet.next()) {
+                driver.setLicenseNumber(resultSet.getString(1));
+                driver.setFirstName(resultSet.getString(2));
+                driver.setLastName(resultSet.getString(3));
+                driver.setUsage(VehicleUsage.valueOf(resultSet.getString(4)));
+            } 
+        } catch (SQLException ex) {
+            System.out.println("Technical Difficulties... ");
+            System.err.println(ex.getMessage());
+        }finally {
+            try {
+                if(conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Technical Difficulties");
+                System.err.println(ex.getMessage());
+            }
+        }
         return driver;
+    }
+    
+    public static List<Driver> getDrivers()
+        throws ClassNotFoundException{
+        drivers = new ArrayList<>();
+         //All connections go through DBConnection.getConnection();
+        Connection conn = null;
+        
+        try {
+            conn = DBConnection.getConnection();
+            String queryString = "sp_selectDrivers();"; //question mark is a placeholder
+            CallableStatement callableStatement = conn.prepareCall(queryString);
+            
+            ResultSet resultSet = callableStatement.executeQuery();
+                    
+            //set employee object to the result set from the query
+            while(resultSet.next()) {
+                Driver driver = new Driver();
+                driver.setLicenseNumber(resultSet.getString(1));
+                driver.setFirstName(resultSet.getString(2));
+                driver.setLastName(resultSet.getString(3));
+                driver.setUsage(VehicleUsage.valueOf(resultSet.getString(4)));
+                drivers.add(driver);
+            } 
+        } catch (SQLException ex) {
+            System.out.println("Technical Difficulties... ");
+            System.err.println(ex.getMessage());
+        }finally {
+            try {
+                if(conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Technical Difficulties");
+                System.err.println(ex.getMessage());
+            }
+        }
+        return drivers;
     }
     
     public static List<Driver> getVehicleDrivers(int vehicleId)
@@ -50,7 +120,7 @@ public class DriverDAO {
                 driver.setLicenseNumber(resultSet.getString(1));
                 driver.setFirstName(resultSet.getString(2));
                 driver.setLastName(resultSet.getString(3));
-                //driver.setUsage(VehicleUsage.valueOf(resultSet.getString(4)));
+                driver.setUsage(VehicleUsage.valueOf(resultSet.getString(4)));
                 drivers.add(driver);
             } 
         } catch (SQLException ex) {

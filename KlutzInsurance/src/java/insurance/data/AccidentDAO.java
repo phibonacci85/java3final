@@ -22,6 +22,47 @@ import java.util.List;
 public class AccidentDAO {
     
     private static List<Accident> accidents = new ArrayList<>();
+    private static Accident accident = new Accident();
+    
+    public static Accident getAccidentsByAccidentId(int accidentId)
+        throws ClassNotFoundException{
+        accidents = new ArrayList<>();
+         //All connections go through DBConnection.getConnection();
+        Connection conn = null;
+        
+        try {
+            conn = DBConnection.getConnection();
+            String queryString = "sp_selectAccidentsByDriverId(?);"; //question mark is a placeholder
+            CallableStatement callableStatement = conn.prepareCall(queryString);
+            int id = accidentId;
+            
+            callableStatement.setInt(1, id);
+            ResultSet resultSet = callableStatement.executeQuery();
+                    
+            //set employee object to the result set from the query
+            while(resultSet.next()) {
+                accident.setAccidentId(resultSet.getInt(1));
+                accident.setLiscenseNumber(resultSet.getString(2));
+                accident.setVin(resultSet.getString(3));
+                accident.setType(AccidentType.valueOf(resultSet.getString(4)));
+                accident.setDate(resultSet.getDate(1));
+                accident.setAtFault(resultSet.getBoolean(2));
+            } 
+        } catch (SQLException ex) {
+            System.out.println("Technical Difficulties... ");
+            System.err.println(ex.getMessage());
+        }finally {
+            try {
+                if(conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Technical Difficulties");
+                System.err.println(ex.getMessage());
+            }
+        }
+        return accident;
+    }
     
     public static List<Accident> getAccidents()
         throws ClassNotFoundException{
