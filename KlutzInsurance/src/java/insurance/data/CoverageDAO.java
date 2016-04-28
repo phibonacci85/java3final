@@ -35,7 +35,7 @@ public class CoverageDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "call sp_selectCoveragesByUsername(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectCoverageByCoverageId(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             int id = coverageId;
             

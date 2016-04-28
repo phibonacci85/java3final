@@ -31,7 +31,7 @@ public class ViolationDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "call sp_selectViolationsByViolationId(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectViolationByViolationId(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             String id = violationId;
             
@@ -101,7 +101,7 @@ public class ViolationDAO {
         return violations;
     }
     
-    public static List<Violation> getDriverViolations(String liscenseNumber)
+    public static List<Violation> getDriverViolations(String licenseNumber)
         throws ClassNotFoundException{
         violations = new ArrayList<>();
          //All connections go through DBConnection.getConnection();
@@ -111,7 +111,7 @@ public class ViolationDAO {
             conn = DBConnection.getConnection();
             String queryString = "call sp_selectViolationsByLiscenseNumber(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
-            String id = liscenseNumber;
+            String id = licenseNumber;
             
             callableStatement.setString(1, id);
             ResultSet resultSet = callableStatement.executeQuery();

@@ -31,7 +31,7 @@ public class DriverDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "call sp_selectDriversByLiscenseNumber(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectDriverByLiscenseNumber(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             String id = liscenseNumber;
             
