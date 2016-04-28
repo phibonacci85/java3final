@@ -147,13 +147,14 @@ public class DriverDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "call sp_insertDriver(?,?,?,?);"; //question mark is a placeholder
+            String queryString = "call sp_insertDriverBasic(?,?,?,?,?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             callableStatement.setString(1, driver.getLicenseNumber());
             callableStatement.setString(2, driver.getFirstName());
             callableStatement.setString(3, driver.getLastName());
-            callableStatement.setString(4, driver.getUsage().toString());
+            callableStatement.setInt(4, driver.getAge());
+            callableStatement.setString(5, driver.getUsage().toString());
             
             if(!callableStatement.execute()) {
                 int updateCount = callableStatement.getUpdateCount();

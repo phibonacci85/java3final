@@ -113,10 +113,17 @@ public class RequestHandler extends HttpServlet {
                     driver.setLicenseNumber("339XX1234");
                     driver.setFirstName("Bruce");
                     driver.setLastName("Wayne");
+                    driver.setAge(35);
+                    driver.setUsage(VehicleUsage.PLEASURE);
                     
                     Vehicle vehicle = new Vehicle();
-                    vehicle.setLiscenseNumber("339XX1234");
                     vehicle.setVin("ABC1234");
+                    vehicle.setLiscenseNumber("339XX1234");
+                    vehicle.setMake("Dodge");
+                    vehicle.setModel("Stratus");
+                    vehicle.setYear(2002);
+                    vehicle.setTotalMileage(100000);
+                    vehicle.setAnnualMileage(20000);
                     
                     Policy policy = new Policy();
                     policy.setUsername(curUser.getUsername());

@@ -83,7 +83,7 @@ CREATE TABLE Vehicle (
     Make VARCHAR(20) NULL,
     Model VARCHAR(20) NULL,
     TotalMileage INT DEFAULT 0,
-    AnnualMilege INT DEFAULT 0,
+    AnnualMileage INT DEFAULT 0,
     PRIMARY KEY (Vin),
     FOREIGN KEY (LicenseNumber) 
 		REFERENCES Driver(LicenseNumber)
@@ -292,6 +292,18 @@ VALUES (Fname,Lname,Age,LicenseNumber,Violations,Usages,Accidents);
 END$$
 DELIMITER 
 
+DELIMITER $$
+Create Procedure sp_insertDriverBasic(
+IN LicenseNumber VARCHAR(40),
+IN Fname VARCHAR(40),
+IN Lname VARCHAR(40),
+IN Age	INT,
+IN Usages VARCHAR(40))
+BEGIN
+INSERT INTO Driver(Fname,Lname,LicenseNumber,Age,Usages)
+VALUES (Fname,Lname,LicenseNumber,Age,Usages);
+END$$
+DELIMITER 
 /******************************************************************************
 	STORED PROCEDURE: Policy
 ******************************************************************************/
@@ -344,10 +356,10 @@ IN Year INT,
 IN Make VARCHAR(20), 
 IN Model VARCHAR(20),
 IN TotalMileage INT,
-IN AnnuallMileage INT   )
+IN AnnualMileage INT   )
 BEGIN
-INSERT INTO Vehicle (LicenseNumber,Vin,Year,Make,Model,TotalMileage,AnnualMilege) 
-VALUES (LicenseNumber,Vin,Year,Make,Model,TotalMileage,AnnualMilege) ;
+INSERT INTO Vehicle (LicenseNumber,Vin,Year,Make,Model,TotalMileage,AnnualMileage) 
+VALUES (LicenseNumber,Vin,Year,Make,Model,TotalMileage,AnnualMileage) ;
 END$$
 DELIMITER 
 /******************************************************************************

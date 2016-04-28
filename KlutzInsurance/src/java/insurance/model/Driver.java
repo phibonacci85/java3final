@@ -19,6 +19,7 @@ public class Driver {
     private String firstName;
     private String lastName;
     private VehicleUsage usage;
+    private int age;
     
     private List<Accident> accidents = new ArrayList<>();
     private List<Vehicle> vehicles = new ArrayList<>();
@@ -152,5 +153,19 @@ public class Driver {
      */
     public void setSuspensions(List<Suspension> suspensions) {
         this.suspensions = suspensions;
+    }
+
+    /**
+     * @return the age
+     */
+    public int getAge() {
+        return age;
+    }
+
+    /**
+     * @param age the age to set
+     */
+    public void setAge(int age) {
+        this.age = age;
     }
 }
