@@ -22,6 +22,11 @@ public class UserDAO {
     private static User user = null;
     private static List<User> users = new ArrayList<>();
     
+    /**
+     * get all users
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static List<User> getUsers()
         throws ClassNotFoundException {
         users = new ArrayList<>();
@@ -57,7 +62,13 @@ public class UserDAO {
         }
         return users;
     }
-        
+       
+    /**
+     * get a user by username
+     * @param username
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static User getUserByUsername(String username)
             throws ClassNotFoundException {
         
@@ -94,6 +105,13 @@ public class UserDAO {
         return user;
     }
     
+    /**
+     * create a user record
+     * @param username
+     * @param password
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static boolean createUser(String username, String password)
         throws ClassNotFoundException {
         boolean succeeded = false;

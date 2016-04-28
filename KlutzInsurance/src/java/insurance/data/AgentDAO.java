@@ -5,7 +5,6 @@
  */
 package insurance.data;
 
-import insurance.model.Accident;
 import insurance.model.Agent;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -22,6 +21,12 @@ public class AgentDAO {
     
     private static List<Agent> agents = new ArrayList<>();
     
+    /**
+     * gets the agent information by the username
+     * @param username
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public Agent getUserAgent(String username)
         throws ClassNotFoundException{
          //All connections go through DBConnection.getConnection();
@@ -63,6 +68,11 @@ public class AgentDAO {
         return agent;
     }
     
+    /**
+     * gets all agents
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static List<Agent> getAgents()
         throws ClassNotFoundException {
         agents = new ArrayList<>();
@@ -104,6 +114,12 @@ public class AgentDAO {
         return agents;
     }
     
+    /**
+     * creates new agent
+     * @param agent
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static boolean createAgent(Agent agent)
         throws ClassNotFoundException {
         boolean succeeded = false;

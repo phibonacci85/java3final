@@ -6,7 +6,6 @@
 
 package insurance.model;
 
-import insurance.data.VehicleDAO;
 import java.util.List;
 
 /**

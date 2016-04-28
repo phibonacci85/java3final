@@ -20,6 +20,12 @@ import java.util.List;
 public class CustomerDAO {
     private static List<Customer> customers = new ArrayList<>();
     
+    /**
+     * gets the customer from the username
+     * @param username
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public Customer getUserCustomer(String username)
         throws ClassNotFoundException{
          //All connections go through DBConnection.getConnection();
@@ -62,6 +68,11 @@ public class CustomerDAO {
         return customer;
     }
     
+    /**
+     * gets all customers
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static List<Customer> getCustomers()
         throws ClassNotFoundException {
         customers = new ArrayList<>();
@@ -104,6 +115,12 @@ public class CustomerDAO {
         return customers;
     }
     
+    /**
+     * creates a new customer record
+     * @param customer
+     * @return
+     * @throws ClassNotFoundException 
+     */
      public static boolean createCustomer(Customer customer)
         throws ClassNotFoundException {
         boolean succeeded = false;

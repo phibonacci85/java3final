@@ -23,6 +23,12 @@ public class SuspensionDAO {
     private static List<Suspension> suspensions = new ArrayList<Suspension>();
     private static Suspension suspension = new Suspension();
     
+    /**
+     * Get a suspension by the suspensionId
+     * @param suspensionId
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static Suspension getSuspensionBySuspensionId(int suspensionId)
         throws ClassNotFoundException{
         suspensions = new ArrayList<>();
@@ -62,6 +68,11 @@ public class SuspensionDAO {
         return suspension;
     }
     
+    /**
+     * get all suspensions
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static List<Suspension> getSuspensions()
         throws ClassNotFoundException{
         suspensions = new ArrayList<>();
@@ -101,6 +112,12 @@ public class SuspensionDAO {
         return suspensions;
     }
     
+    /**
+     * get a user's suspensions by username
+     * @param username
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static List<Suspension> getUserSuspensions(String username)
         throws ClassNotFoundException{
         suspensions = new ArrayList<>();
@@ -142,6 +159,12 @@ public class SuspensionDAO {
         return suspensions;
     }
     
+    /**
+     * create a suspension record
+     * @param suspension
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static boolean createSuspension(Suspension suspension)
         throws ClassNotFoundException {
         boolean succeeded = false;
