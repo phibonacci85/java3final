@@ -30,7 +30,7 @@ public class VehicleDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectVehicleByVin(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectVehicleByVin(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             String id = vin;
             
@@ -72,7 +72,7 @@ public class VehicleDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectVehicles();"; //question mark is a placeholder
+            String queryString = "call sp_selectVehicles();"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             ResultSet resultSet = callableStatement.executeQuery();
