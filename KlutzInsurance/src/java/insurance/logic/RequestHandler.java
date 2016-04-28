@@ -5,9 +5,10 @@
  */
 package insurance.logic;
 
-import insurance.data.UserDAO;
-import insurance.model.User;
+import insurance.data.*;
+import insurance.model.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,7 +39,7 @@ public class RequestHandler extends HttpServlet {
 
         String nextLocationText = request.getParameter("task");
         HttpSession session = request.getSession();
-
+        User curUser = (User)session.getAttribute("user");
         switch (nextLocationText) {
             case "login":
                 nextLocation = "/login.jsp";
@@ -47,13 +48,17 @@ public class RequestHandler extends HttpServlet {
                 nextLocation = "/index.jsp";
                 break;
             case "profile":
-                nextLocation = "/profile.jsp";
+                if(curUser == null) {
+                    nextLocation = "/index.jsp";
+                } else {
+                    nextLocation = "/profile.jsp";
+                }
                 break;
             case "validate_login":
                 String username = request.getParameter("username");
                 String password = request.getParameter("password");
                 try {
-                    User curUser = UserDAO.getUserByUsername(username);
+                    curUser = UserDAO.getUserByUsername(username);
                     if(password.equals(curUser.getPassword())) {
                         session.setAttribute("user", curUser);
                     }
@@ -73,7 +78,7 @@ public class RequestHandler extends HttpServlet {
                 try {
                     boolean created = UserDAO.createUser(createUsername, createPassword);
                     if(created) {
-                        User curUser = UserDAO.getUserByUsername(createUsername);
+                        curUser = UserDAO.getUserByUsername(createUsername);
                         session.setAttribute("user", curUser);
                     }
                 } catch (Exception e) {
@@ -83,7 +88,12 @@ public class RequestHandler extends HttpServlet {
                 nextLocation = "/index.jsp";
                 break;
             case "browse_policies":
-                nextLocation = "/browse_policies.jsp";
+                if(curUser == null) {
+                    nextLocation = "/index.jsp";
+                } else {
+                    ArrayList<Policy> policies = new ArrayList();
+                    nextLocation = "/browse_policies.jsp";
+                }
                 break;
             case "start_policy":
                 nextLocation = "/start_policy.jsp";

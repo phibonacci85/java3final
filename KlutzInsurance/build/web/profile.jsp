@@ -5,32 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="javax.servlet.http.HttpSession" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Insurance Profile</title>
-        <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/default.css" rel="stylesheet" type="text/css"/>
-        <link href="css/home.css" rel="stylesheet" type="text/css"/>
+        <jsp:include page="/includes/head.html" />
     </head>
     <body>
-        <div class="top-bar">
-            <div class="top-bar-left">
-                <ul class="menu">
-                    <li><a href="#">Welcome: ${profile.firstName} ${profile.lastName}</a></li>
-                </ul>
-            </div>
-            <div class="top-bar-right">
-                <ul class="menu">
-                    <li><a href="RequestHandler?task=home">Home</a></li>
-                    <li><a href="RequestHandler?task=profile">Profile</a></li>
-                    <li><a href="RequestHandler?task=login">Login</a></li>
-                    <li><a href="RequestHandler?task=logout">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-
+        <jsp:include page="/includes/top_bar.jsp" />
         <div class="row">
             <div class="center-text">
                 <h1>Profile</h1>
@@ -41,14 +24,14 @@
                 <h5>First Name</h5>
             </div>
             <div class="small-6 columns" style="text-align:right;">
-                <h5>${profile.firstName}</h5>
+                <h5>${user.username}</h5>
             </div>
             <hr>
             <div class="small-6 columns">
                 <h5>Last Name</h5>
             </div>
             <div class="small-6 columns" style="text-align:right;">
-                <h5>${profile.lastName}</h5>
+                <h5>${user.password}</h5>
             </div>
         </div>
         
