@@ -7,7 +7,7 @@ CLAYTON KNIGHT
         
         
 this file will create the data base use for our insuance application.
-it already adds the need stored procedures for insert and select.
+it already adds the need stored procedures for insert and Fselect.
 
 
 
@@ -35,15 +35,18 @@ USE J3Project2;
 ******************************************************************************/
 
 CREATE TABLE Driver (
+    LicenseNumber VARCHAR(40) NOT NULL,
     Fname VARCHAR(40) NOT NULL,
     Lname VARCHAR(40) NOT NULL,
-    Age	INT ,
-    LicenseNumber VARCHAR(40) NOT NULL,
-    Violations VARCHAR(40) NULL,
-    Usages VARCHAR(40) NULL,
-    Accidents VARCHAR(40) NULL,
+    Useages VARCHAR(40) NOT NULL,
+    DOB DATE,
     PRIMARY KEY (LicenseNumber)
 );
+
+INSERT INTO Driver(LicenseNumber,Fname,Lname,Useages,DOB)
+VALUES
+('444aa8888','firstname1','lastname1','SCHOOL','1999-01-01'),
+('333bb8888','firstname2','lastname2','WORK','1999-02-02');
 
 
 /******************************************************************************
@@ -70,7 +73,17 @@ CREATE TABLE Users (
     UserName VARCHAR(20) NOT NULL,
     Password VARCHAR(20) NOT NULL,
     PRIMARY KEY (UserName )
+    
 );
+INSERT INTO Users (userName,Password) 
+VALUES 
+('cknight','password1'),
+('snake19','password2'),
+('Phibonacci85','password3'),
+('t_determann','password4'),
+('cust001','password5'),
+('cust002','password6');
+
 
 /******************************************************************************
 	TABLE: Vehicle
@@ -88,6 +101,10 @@ CREATE TABLE Vehicle (
     FOREIGN KEY (LicenseNumber) 
 		REFERENCES Driver(LicenseNumber)
 );
+
+INSERT INTO Vehicle(Vin,LicenseNumber,Year,Make,Model,TotalMileage,AnnualMileage)
+VALUES('ljcpcblcx11000237','444aa8888','2010','Ford','Escape','980000','5000'),
+('fakevinexample','333bb8888','2015','Honda','civic','25000','5000');
 
 
 /******************************************************************************
@@ -121,6 +138,11 @@ CREATE TABLE Customer (
     FOREIGN KEY (UserName)
         REFERENCES Users (UserName)
 );
+INSERT INTO Customer(userName,Fname,Lname,Dob,Address,phone,email,Ss) 
+VALUES 
+('cust001','firstname','lastname','1999-01-01','01  fake street IA','1118885555','fakeeamil1@yahoo.com','333224444'),
+('cust002','firstname2','lastname2','1999-02-02','02 fake street IA','1113334444','fakeeamil2@yahoo.com','111223333');
+
 /******************************************************************************
 	TABLE: Agent
 ******************************************************************************/
@@ -137,6 +159,13 @@ CREATE TABLE Agent (
     FOREIGN KEY (UserName)
         REFERENCES Users (UserName)
 );
+INSERT INTO agent (userName,Fname,Lname,DOB,Address,phone,paygrade) 
+VALUES 
+('cknight','clay','knight','1999-09-09','2000 Fake Address Lane, IA 52240 ','1112223333','a1'),
+('snake19','sara','n','1999-09-09','2000 Fake Address Lane, IA 52240 ','1112223333','a1'),
+('Phibonacci85','john','baker','1999-09-09','2000 Fake Address Lane, IA 52240 ','1112223333','a1'),
+('t_determann','teresa','determann','1999-09-09','2000 Fake Address Lane, IA 52240 ','1112223333','a1');
+
 
 
 /******************************************************************************
@@ -144,7 +173,7 @@ CREATE TABLE Agent (
 ******************************************************************************/
 
 CREATE TABLE Coverage (
-	Coverage_id VARCHAR(20) NOT NULL,
+	Coverage_id int NOT NULL AUTO_INCREMENT,
     UserName VARCHAR(20) NOT NULL,
     CoverageType VARCHAR(60) NULL,
     biStateMinimum VARCHAR(20) NULL,
@@ -155,6 +184,7 @@ CREATE TABLE Coverage (
     FOREIGN KEY(UserName) REFERENCES Users (UserName)
     
 );
+
 
 
 /******************************************************************************
@@ -193,10 +223,11 @@ CREATE TABLE Policy (
         REFERENCES Users (UserName),
 	FOREIGN KEY (Vin) 
 		REFERENCES Vehicle(Vin)
-	
-    
-    
 );
+INSERT INTO Policy(UserName,Vin,Name,Rate)
+VALUES ('cust001','fakevinexample','','0.0'),
+('cust002','ljcpcblcx11000237','','0.0');
+
 
 /******************************************************************************
 	STORED PROCEDURES <><><>\/\/\/
@@ -279,16 +310,14 @@ DELIMITER
 ******************************************************************************/
 DELIMITER $$
 Create Procedure sp_insertDriver(
+IN LicenseNumber VARCHAR(40),
 IN Fname VARCHAR(40),
 IN Lname VARCHAR(40),
-IN Age INT,
-IN LicenseNumber VARCHAR(40),
-IN Violations VARCHAR(40),
 IN Usages VARCHAR(40),
-IN Accidents VARCHAR(40))
+IN DOB DATE)
 BEGIN
-INSERT INTO Driver(Fname,Lname,Age,LicenseNumber,Violations,Usages,Accidents)
-VALUES (Fname,Lname,Age,LicenseNumber,Violations,Usages,Accidents);
+INSERT INTO Driver(LicenseNumber,Fname,Lname,Usages,DOB)
+VALUES (LicenseNumber,Fname,Lname,Usages,DOB);
 END$$
 DELIMITER 
 
