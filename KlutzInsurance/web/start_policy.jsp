@@ -29,10 +29,10 @@
                     </label>
                     <label>
                         <select name="createDriverUsage">
-                            <option val="WORK">Work</option>
-                            <option val="SCHOOL">School</option>
-                            <option val="BUSINESS">Business</option>
-                            <option val="PLEASURE">Pleasure</option>
+                            <option value="WORK">Work</option>
+                            <option value="SCHOOL">School</option>
+                            <option value="BUSINESS">Business</option>
+                            <option value="PLEASURE">Pleasure</option>
                         </select>
                     </label>
                     <input type="submit" class="button large" value="Create Driver" />

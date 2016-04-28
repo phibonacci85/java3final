@@ -178,6 +178,7 @@ public class RequestHandler extends HttpServlet {
                     driver.setLicenseNumber(createDriverLicenseNumber);
                     driver.setFirstName(createDriverFirstName);
                     driver.setLastName(createDriverLastName);
+                    driver.setUsername(curUser.getUsername());
                     
                     switch(createDriverUsage) {
                         case "WORK":
@@ -231,6 +232,7 @@ public class RequestHandler extends HttpServlet {
                     vehicle.setYear(createVehicleYear);
                     vehicle.setTotalMileage(createVehicleTotalMileage);
                     vehicle.setAnnualMileage(createVehicleAnnualMileage);
+                    vehicle.setUsername(curUser.getUsername());
                     try {
                         VehicleDAO.createVehicle(vehicle);
                         

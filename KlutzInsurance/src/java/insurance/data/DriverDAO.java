@@ -153,7 +153,7 @@ public class DriverDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "call sp_selectDriversByVin(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectDriverByUsername(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             String id = username;
             
@@ -195,7 +195,7 @@ public class DriverDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "call sp_insertDriver(?,?,?,?,?);"; //question mark is a placeholder
+            String queryString = "call sp_insertDriver(?,?,?,?,?,?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             callableStatement.setString(1, driver.getLicenseNumber());
