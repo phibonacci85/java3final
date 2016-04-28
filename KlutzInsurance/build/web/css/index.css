@@ -7,19 +7,19 @@ and open the template in the editor.
     Created on : Apr 12, 2016, 8:46:23 PM
     Author     : John
 */
-html {
-  height: 100%;
-  min-height: 100%;
-  color: white;
-}
 
 body {
-  min-height: 100%;
-  padding: 0;
-  margin: 0;
-  background-image: url(../img/background/3.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
+    width: 100%;
+    color: #000;
+    padding: 0;
+    margin: 0;
+    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    position: relative;
+    cursor: default;
+    background-color: #fafafa;
 }
 
 input[type=text], input[type=password] {
@@ -32,21 +32,4 @@ input[type=text], input[type=password] {
 
 input[type=text]:focus, input[type=password]:focus {
   background: rgba(255, 255, 255, .9);
-}
-
-.border {
-  border: 1px solid rgba(255, 255, 255, .5);
-  background: rgba(0, 0, 0, .2);
-  border-radius: 5px;
-  padding-top: 0px;
-}
-
-#main {
-  padding-top: 10%;
-}
-
-.alert-message {
-  border-radius: 5px;
-  border: 2px solid red;
-  color: red;
 }

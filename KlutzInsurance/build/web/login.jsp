@@ -8,11 +8,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Insurance Login</title>
-        <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
-        <link href="css/default.css" rel="stylesheet" type="text/css"/>
-        <link href="css/index.css" rel="stylesheet" type="text/css"/>
+        <jsp:include page="/includes/head.html" />
+        <link href="css/login.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div id="main" class="row">

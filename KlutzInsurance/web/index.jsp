@@ -11,7 +11,7 @@
 <html>
     <head>
         <jsp:include page="/includes/head.html" />
-        <link href="css/home.css" rel="stylesheet" type="text/css"/>
+        <link href="css/index.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div class="top-bar">
@@ -55,7 +55,15 @@
                     </c:when>
                     <c:otherwise>
                         <p>Please Login or Create a new User</p>
-                        <a href="RequestHandler?task=create_user" class="button large">Create User</a>
+                        <div class="row">
+                            <div class="large-4 columns large-centered">
+                                <form action="RequestHandler?task=create_user" method="post">
+                                    <input type="text" name="createUsername" />
+                                    <input type="password" name="createPassword" />
+                                    <input type="submit" class="button large" value="Create User" />
+                                </form>
+                            </div>
+                        </div>
                     </c:otherwise>
                 </c:choose>
             </div>

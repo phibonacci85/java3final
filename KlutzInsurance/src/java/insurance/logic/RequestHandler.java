@@ -54,9 +54,9 @@ public class RequestHandler extends HttpServlet {
                 String password = request.getParameter("password");
                 try {
                     User curUser = UserDAO.getUserByUsername(username);
-                    //User curUser = new User();
-                    curUser.setUsername(username);
-                    session.setAttribute("user", curUser);
+                    if(password.equals(curUser.getPassword())) {
+                        session.setAttribute("user", curUser);
+                    }
                 } catch (ClassNotFoundException e) {
                     // Error logging in
                     session.invalidate();
@@ -68,7 +68,19 @@ public class RequestHandler extends HttpServlet {
                 nextLocation = "/index.jsp";
                 break;
             case "create_user":
-                nextLocation = "/create_user.jsp";
+                String createUsername = request.getParameter("createUsername");
+                String createPassword = request.getParameter("createPassword");
+                try {
+                    boolean created = UserDAO.createUser(createUsername, createPassword);
+                    if(created) {
+                        User curUser = UserDAO.getUserByUsername(createUsername);
+                        session.setAttribute("user", curUser);
+                    }
+                } catch (Exception e) {
+                    // Couldn't create the user
+                    session.invalidate();
+                }
+                nextLocation = "/index.jsp";
                 break;
             case "browse_policies":
                 nextLocation = "/browse_policies.jsp";
