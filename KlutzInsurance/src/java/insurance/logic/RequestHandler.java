@@ -174,14 +174,21 @@ public class RequestHandler extends HttpServlet {
                     nextLocation = "/index.jsp";
                 } else {
                     String createVehicleLicenseNumber = request.getParameter("createVehicleLicenseNumber");
+                    String createVehicleVin = request.getParameter("createVehicleVin");
+                    String createVehicleMake = request.getParameter("createVehicleMake");
+                    String createVehicleModel = request.getParameter("createVehicleModel");
+                    int createVehicleYear = Integer.parseInt((String)request.getParameter("createVehicleYear"));
+                    int createVehicleTotalMileage = Integer.parseInt((String)request.getParameter("createVehicleTotalMileage"));
+                    int createVehicleAnnualMileage = Integer.parseInt((String)request.getParameter("createVehicleAnnualMileage"));
+                    
                     Vehicle vehicle = new Vehicle();
-                    vehicle.setVin("ABC1234");
-                    vehicle.setLiscenseNumber("339XX1234");
-                    vehicle.setMake("Dodge");
-                    vehicle.setModel("Stratus");
-                    vehicle.setYear(2002);
-                    vehicle.setTotalMileage(100000);
-                    vehicle.setAnnualMileage(20000);
+                    vehicle.setVin(createVehicleVin);
+                    vehicle.setLicenseNumber(createVehicleLicenseNumber);
+                    vehicle.setMake(createVehicleMake);
+                    vehicle.setModel(createVehicleModel);
+                    vehicle.setYear(createVehicleYear);
+                    vehicle.setTotalMileage(createVehicleTotalMileage);
+                    vehicle.setAnnualMileage(createVehicleAnnualMileage);
                     try {
                         VehicleDAO.createVehicle(vehicle);
                         

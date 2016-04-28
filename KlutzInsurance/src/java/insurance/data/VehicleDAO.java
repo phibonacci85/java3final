@@ -161,8 +161,8 @@ public class VehicleDAO {
             String queryString = "call sp_insertVehicle(?,?,?,?,?,?,?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
-            callableStatement.setString(1, vehicle.getVin());
-            callableStatement.setString(2, vehicle.getLicenseNumber());
+            callableStatement.setString(1, vehicle.getLicenseNumber());
+            callableStatement.setString(2, vehicle.getVin());
             callableStatement.setInt(3, vehicle.getYear());
             callableStatement.setString(4, vehicle.getMake());
             callableStatement.setString(5, vehicle.getModel());

@@ -52,8 +52,23 @@
                                     </c:forEach>
                                 </select>
                             </label>
-                            <label>More Inputs
-                                <input name="policyName" type="text" />
+                            <label>VIN
+                                <input name="createVehicleVin" type="text" />
+                            </label>
+                            <label>Make
+                                <input name="createVehicleMake" type="text" />
+                            </label>
+                            <label>Model
+                                <input name="createVehicleModel" type="text" />
+                            </label>
+                            <label>Year
+                                <input name="createVehicleYear" type="number" />
+                            </label>
+                            <label>Total Mileage
+                                <input name="createVehicleTotalMileage" type="number" />
+                            </label>
+                            <label>Annual Mileage
+                                <input name="createVehicleAnnualMileage" type="number" />
                             </label>
                             <input type="submit" class="button large" value="Create Vehicle" />
                         </form>
@@ -67,7 +82,7 @@
         <hr>
         <div class="row">
         <c:choose>
-            <c:when test="${drivers != null}">
+            <c:when test="${vehicles != null}">
                 <div class="large-6 columns">
                     <form action="RequestHandler?task=create_policy" method="post">
                         <label>Vehicles
