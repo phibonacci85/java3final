@@ -1,0 +1,52 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 12, 2016, 8:46:23 PM
+    Author     : John
+*/
+html {
+  height: 100%;
+  min-height: 100%;
+  color: white;
+}
+
+body {
+  min-height: 100%;
+  padding: 0;
+  margin: 0;
+  background-image: url(../img/background/3.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+input[type=text], input[type=password] {
+  background: rgba(255, 255, 255, .8);
+  box-shadow: inset 1px 2px 8px rgba(0, 0, 0, .4);
+  border-radius: 5px;
+  border-color: #999999;
+  outline: none;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background: rgba(255, 255, 255, .9);
+}
+
+.border {
+  border: 1px solid rgba(255, 255, 255, .5);
+  background: rgba(0, 0, 0, .2);
+  border-radius: 5px;
+  padding-top: 0px;
+}
+
+#main {
+  padding-top: 10%;
+}
+
+.alert-message {
+  border-radius: 5px;
+  border: 2px solid red;
+  color: red;
+}
