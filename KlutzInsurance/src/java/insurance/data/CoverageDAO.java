@@ -27,6 +27,12 @@ public class CoverageDAO {
     private static List<Coverage> coverages = new ArrayList<>();
     private static Coverage coverage = new Coverage();
     
+    /**
+     * gets the coverage by the coverageId
+     * @param coverageId
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static Coverage getCoverageByCoverageId(int coverageId)
         throws ClassNotFoundException{
         coverages = new ArrayList<>();
@@ -67,6 +73,11 @@ public class CoverageDAO {
         return coverage;
     }
     
+    /**
+     * gets all coverages
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static List<Coverage> getCoverages()
         throws ClassNotFoundException{
         coverages = new ArrayList<>();
@@ -107,6 +118,12 @@ public class CoverageDAO {
         return coverages;
     }
     
+    /**
+     * gets all the coverages by by the user from the username
+     * @param username
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static List<Coverage> getUserCoverages(String username)
         throws ClassNotFoundException{
         coverages = new ArrayList<>();
@@ -149,6 +166,12 @@ public class CoverageDAO {
         return coverages;
     }
     
+    /**
+     * creates a coverage record
+     * @param coverage
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static boolean createCoverage(Coverage coverage)
         throws ClassNotFoundException {
         boolean succeeded = false;

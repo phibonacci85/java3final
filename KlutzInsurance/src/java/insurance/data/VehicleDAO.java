@@ -22,6 +22,12 @@ public class VehicleDAO {
     private static List<Vehicle> vehicles = new ArrayList<>();
     private static Vehicle vehicle;
     
+    /**
+     * get a vehicle by the vin number
+     * @param vin
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static Vehicle getVehicleByVin(String vin)
         throws ClassNotFoundException{
         vehicles = new ArrayList<>();
@@ -65,6 +71,11 @@ public class VehicleDAO {
         return vehicle;
     }
     
+    /**
+     * get all vehicles
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static List<Vehicle> getVehicles()
         throws ClassNotFoundException{
         vehicles = new ArrayList<>();
@@ -108,6 +119,12 @@ public class VehicleDAO {
         return vehicles;
     }
     
+    /**
+     * get a user's vehicles by username
+     * @param username
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static List<Vehicle> getUserVehicles(String username)
         throws ClassNotFoundException{
         vehicles = new ArrayList<>();
@@ -153,6 +170,12 @@ public class VehicleDAO {
         return vehicles;
     }
     
+    /**
+     * create a vehicle record
+     * @param vehicle
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static boolean createVehicle(Vehicle vehicle)
         throws ClassNotFoundException {
         boolean succeeded = false;

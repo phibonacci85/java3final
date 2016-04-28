@@ -23,6 +23,12 @@ public class ViolationDAO {
     private static List<Violation> violations = new ArrayList<>();
     private static Violation violation = new Violation();
     
+    /**
+     * get a violation by violationId
+     * @param violationId
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static Violation getViolationByViolationId(String violationId)
         throws ClassNotFoundException{
         violations = new ArrayList<>();
@@ -62,6 +68,11 @@ public class ViolationDAO {
         return violation;
     }
     
+    /**
+     * get all violations
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static List<Violation> getViolations()
         throws ClassNotFoundException{
         violations = new ArrayList<>();
@@ -101,6 +112,12 @@ public class ViolationDAO {
         return violations;
     }
     
+    /**
+     * get a driver's violations
+     * @param licenseNumber
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static List<Violation> getDriverViolations(String licenseNumber)
         throws ClassNotFoundException{
         violations = new ArrayList<>();
@@ -142,6 +159,12 @@ public class ViolationDAO {
         return violations;
     }
     
+    /**
+     * create a violation record
+     * @param violation
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static boolean createViolation(Violation violation)
         throws ClassNotFoundException {
         boolean succeeded = false;

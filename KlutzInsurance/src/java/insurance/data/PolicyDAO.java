@@ -22,6 +22,12 @@ public class PolicyDAO {
     private static List<Policy> policies = new ArrayList<Policy>();
     private static Policy policy = new Policy();
     
+    /**
+     * get policy by the policyId
+     * @param policyId
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static Policy getPolicyByPolicyId(int policyId)
         throws ClassNotFoundException{
         policies = new ArrayList<>();
@@ -61,6 +67,11 @@ public class PolicyDAO {
         return policy;
     }
     
+    /**
+     * get all policies
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static List<Policy> getPolicies()
         throws ClassNotFoundException{
         policies = new ArrayList<>();
@@ -100,6 +111,12 @@ public class PolicyDAO {
         return policies;
     }
     
+    /**
+     * get a user's polices by username
+     * @param username
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static List<Policy> getUserPolicies(String username)
         throws ClassNotFoundException{
         policies = new ArrayList<>();
@@ -141,6 +158,12 @@ public class PolicyDAO {
         return policies;
     }
     
+    /**
+     * create a policy record
+     * @param policy
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static boolean createPolicy(Policy policy)
         throws ClassNotFoundException {
         boolean succeeded = false;

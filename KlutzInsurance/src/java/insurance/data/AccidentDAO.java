@@ -24,7 +24,13 @@ public class AccidentDAO {
     private static List<Accident> accidents = new ArrayList<>();
     private static Accident accident = new Accident();
     
-    public static Accident getAccidentsByAccidentId(int accidentId)
+    /**
+     * gets an accident from an accidentId
+     * @param accidentId
+     * @return
+     * @throws ClassNotFoundException 
+     */
+    public static Accident getAccidentByAccidentId(int accidentId)
         throws ClassNotFoundException{
         accidents = new ArrayList<>();
          //All connections go through DBConnection.getConnection();
@@ -64,6 +70,11 @@ public class AccidentDAO {
         return accident;
     }
     
+    /**
+     * gets all accidents
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static List<Accident> getAccidents()
         throws ClassNotFoundException{
         accidents = new ArrayList<>();
@@ -104,6 +115,12 @@ public class AccidentDAO {
         return accidents;
     }
     
+    /**
+     * gets all of a drivers accidents
+     * @param driverId
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static List<Accident> getAccidentsByDriverId(int driverId)
         throws ClassNotFoundException{
         accidents = new ArrayList<>();
@@ -146,6 +163,12 @@ public class AccidentDAO {
         return accidents;
     }
     
+    /**
+     * creates a new accident record
+     * @param accident
+     * @return
+     * @throws ClassNotFoundException 
+     */
     public static boolean createAccident(Accident accident)
         throws ClassNotFoundException {
         boolean succeeded = false;
