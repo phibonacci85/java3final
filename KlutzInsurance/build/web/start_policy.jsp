@@ -48,7 +48,7 @@
                             <label>Driver
                                 <select name="createVehicleLicenseNumber">
                                     <c:forEach items="${drivers}" var="driver" >
-                                        <option val="${driver.licenseNumber}">${driver.firstName} ${driver.lastName}</option>
+                                        <option value="${driver.licenseNumber}">${driver.firstName} ${driver.lastName}</option>
                                     </c:forEach>
                                 </select>
                             </label>
@@ -86,14 +86,17 @@
                 <div class="large-6 columns">
                     <form action="RequestHandler?task=create_policy" method="post">
                         <label>Vehicles
-                            <select name="createVehicleVin">
+                            <select name="createPolicyVin">
                                 <c:forEach items="${vehicles}" var="vehicle" >
-                                    <option val="${vehicle.vin}">${vehicle.make} ${vehicle.model}</option>
+                                    <option value="${vehicle.vin}">${vehicle.make} ${vehicle.model}</option>
                                 </c:forEach>
                             </select>
                         </label>
-                        <label>More Inputs
-                            <input name="policyName" type="text" />
+                        <label>Name
+                            <input name="createPolicyName" type="text" />
+                        </label>
+                        <label>Rate
+                            <input name="createPolicyRate" type="number" />
                         </label>
                         <input type="submit" class="button large" value="Create Policy" />
                     </form>
