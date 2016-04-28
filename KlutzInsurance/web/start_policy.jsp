@@ -88,7 +88,7 @@
                         <label>Vehicles
                             <select name="createPolicyVin">
                                 <c:forEach items="${vehicles}" var="vehicle" >
-                                    <option value="${vehicle.vin}">${vehicle.make} ${vehicle.model}</option>
+                                    <option value="${vehicle.vin}">${vehicle.vin}, ${vehicle.make} ${vehicle.model}</option>
                                 </c:forEach>
                             </select>
                         </label>
@@ -99,6 +99,32 @@
                             <input name="createPolicyRate" type="number" />
                         </label>
                         <input type="submit" class="button large" value="Create Policy" />
+                    </form>
+                </div>
+            </c:when>
+            <c:otherwise>
+
+            </c:otherwise>
+        </c:choose>
+        <c:choose>
+            <c:when test="${false}">
+                <div class="large-6 columns">
+                    <form action="RequestHandler?task=attach_car_to_policy" method="post">
+                        <label>Policy
+                            <select name="attachVehiclePolicyId">
+                                <c:forEach items="${policies}" var="policy" >
+                                    <option value="${policy.id}">${vehicle.name}</option>
+                                </c:forEach>
+                            </select>
+                        </label>
+                        <label>Vehicle
+                            <select name="attachVehicleVin">
+                                <c:forEach items="${vehicles}" var="vehicle" >
+                                    <option value="${vehicle.vin}">${vehicle.vin}, ${vehicle.make} ${vehicle.model}</option>
+                                </c:forEach>
+                            </select>
+                        </label>
+                        <input type="submit" class="button large" value="Attach Car to Policy" />
                     </form>
                 </div>
             </c:when>

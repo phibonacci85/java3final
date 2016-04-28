@@ -14,32 +14,24 @@
     </head>
     <body>
         <jsp:include page="/includes/top_bar.jsp" />
-        <h1 class="text-center">Browse Vehicles</h1>
-        <table border="1" cellpadding="10">
-            <thead>
-                <th>VIN</th>
-                <th>License Number</th>
-                <th>Make</th>
-                <th>Model</th>
-                <th>Year</th>
-                <th>Total Mileage</th>
-                <th>Annual Mileage</th>
-                <th>Username</th>
-            </thead>
-            <tbody>
-                <c:forEach items="${vehicles}" var="vehicle" >
-                    <tr>
-                        <td>${vehicle.vin}</td>
-                        <td>${vehicle.licenseNumber}</td>
-                        <td>${vehicle.make}</td>
-                        <td>${vehicle.model}</td>
-                        <td>${vehicle.year}</td>
-                        <td>${vehicle.totalMileage}</td>
-                        <td>${vehicle.annualMileage}</td>
-                        <td>${vehicle.username}</td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+        <h1 class="text-center">Vehicle Details</h1>
+        <div class="row">
+            <div class="large-10 large-centered">
+                <hr>
+                <label>VIN: </label><span>${vehicle.vin}</span>
+                <hr>
+                <label>License Number: </label><span>${vehicle.licenseNumber}</span>
+                <hr>
+                <label>Make: </label><span>${vehicle.make}</span>
+                <hr>
+                <label>Model: </label><span>${vehicle.model}</span>
+                <hr>
+                <label>Year: </label><span>${vehicle.year}</span>
+                <hr>
+                <label>Total Mileage: </label><span>${vehicle.totalMileage}</span>
+                <hr>
+                <label>Annual Mileage: </label><span>${vehicle.annualMileage}</span>
+            </div>
+        </div>
     </body>
 </html>

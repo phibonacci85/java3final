@@ -14,24 +14,24 @@
     </head>
     <body>
         <jsp:include page="/includes/top_bar.jsp" />
-        <h1 class="text-center">Browse Vehicles</h1>
-        <table border="1" cellpadding="10">
-            <thead>
-                <th>Policy Id</th>
-                <th>VIN</th>
-                <th>Name</th>
-                <th>Rate</th>
-            </thead>
-            <tbody>
-                <c:forEach items="${policies}" var="policy" >
-                    <tr>
-                        <td>${policy.policyId}</td>
-                        <td>${policy.vin}</td>
-                        <td>${policy.name}</td>
-                        <td>${policy.rate}</td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+        <h1 class="text-center">Vehicle Details</h1>
+        <div class="row">
+            <div class="large-10 large-centered">
+                <hr>
+                <label>VIN: </label><span>${vehicle.vin}</span>
+                <hr>
+                <label>License Number: </label><span>${vehicle.licenseNumber}</span>
+                <hr>
+                <label>Make: </label><span>${vehicle.make}</span>
+                <hr>
+                <label>Model: </label><span>${vehicle.model}</span>
+                <hr>
+                <label>Year: </label><span>${vehicle.year}</span>
+                <hr>
+                <label>Total Mileage: </label><span>${vehicle.totalMileage}</span>
+                <hr>
+                <label>Annual Mileage: </label><span>${vehicle.annualMileage}</span>
+            </div>
+        </div>
     </body>
 </html>
