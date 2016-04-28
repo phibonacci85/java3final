@@ -22,7 +22,7 @@ public class Policy {
     
     
     
-    public Vehicle vehicle = VehicleDAO.getVehicle(getVin());
+    //public Vehicle vehicle = VehicleDAO.getVehicleByVin(getVin());
     private List<Driver> drivers;
     
     public Policy() { }

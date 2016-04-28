@@ -25,8 +25,87 @@ import java.util.Set;
 public class CoverageDAO {
     
     private static List<Coverage> coverages = new ArrayList<>();
+    private static Coverage coverage = new Coverage();
     
-    public static List<Coverage> getUserAccidents(String username)
+    public static Coverage getCoverageByCoverageId(int coverageId)
+        throws ClassNotFoundException{
+        coverages = new ArrayList<>();
+         //All connections go through DBConnection.getConnection();
+        Connection conn = null;
+        
+        try {
+            conn = DBConnection.getConnection();
+            String queryString = "sp_selectCoveragesByUsername(?);"; //question mark is a placeholder
+            CallableStatement callableStatement = conn.prepareCall(queryString);
+            int id = coverageId;
+            
+            callableStatement.setInt(1, id);
+            ResultSet resultSet = callableStatement.executeQuery();
+                    
+            //set employee object to the result set from the query
+            while(resultSet.next()) {
+                coverage.setUsername(resultSet.getString(1));
+                coverage.setType(CoverageType.valueOf(resultSet.getString(2)));
+                coverage.setBiStateMinimum(resultSet.getString(3));
+                coverage.setPdStateMinimum(resultSet.getInt(4));
+                coverage.setDeductibleOption(DeductibleOption.valueOf(resultSet.getString(5)));
+            } 
+        } catch (SQLException ex) {
+            System.out.println("Technical Difficulties... ");
+            System.err.println(ex.getMessage());
+        }finally {
+            try {
+                if(conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Technical Difficulties");
+                System.err.println(ex.getMessage());
+            }
+        }
+        return coverage;
+    }
+    
+    public static List<Coverage> getCoverages()
+        throws ClassNotFoundException{
+        coverages = new ArrayList<>();
+         //All connections go through DBConnection.getConnection();
+        Connection conn = null;
+        
+        try {
+            conn = DBConnection.getConnection();
+            String queryString = "sp_selectCoveragesByUsername(?);"; //question mark is a placeholder
+            CallableStatement callableStatement = conn.prepareCall(queryString);
+            
+            ResultSet resultSet = callableStatement.executeQuery();
+                    
+            //set employee object to the result set from the query
+            while(resultSet.next()) {
+                Coverage coverage = new Coverage();
+                coverage.setUsername(resultSet.getString(1));
+                coverage.setType(CoverageType.valueOf(resultSet.getString(2)));
+                coverage.setBiStateMinimum(resultSet.getString(3));
+                coverage.setPdStateMinimum(resultSet.getInt(4));
+                coverage.setDeductibleOption(DeductibleOption.valueOf(resultSet.getString(5)));
+                coverages.add(coverage);
+            } 
+        } catch (SQLException ex) {
+            System.out.println("Technical Difficulties... ");
+            System.err.println(ex.getMessage());
+        }finally {
+            try {
+                if(conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Technical Difficulties");
+                System.err.println(ex.getMessage());
+            }
+        }
+        return coverages;
+    }
+    
+    public static List<Coverage> getUserCoverages(String username)
         throws ClassNotFoundException{
         coverages = new ArrayList<>();
          //All connections go through DBConnection.getConnection();

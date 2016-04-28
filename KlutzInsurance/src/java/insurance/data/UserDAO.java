@@ -6,9 +6,6 @@
 
 package insurance.data;
 
-import insurance.model.Coverage;
-import insurance.model.CoverageType;
-import insurance.model.DeductibleOption;
 import insurance.model.User;
 import java.sql.CallableStatement;
 import java.sql.Connection;
