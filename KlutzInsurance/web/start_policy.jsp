@@ -17,7 +17,7 @@
         <h1 class="text-center">Start Policy</h1>
         <div class="row">
             <div class="large-6 columns">
-                <form action="RequestHandler?task=create_policy" method="post">
+                <form action="RequestHandler?task=create_driver" method="post">
                     <label>Name
                         <input name="policyName" type="text" />
                     </label>
@@ -27,9 +27,55 @@
                     <label>Vin
                         <input name="policyVin" type="text" />
                     </label>
-                    <input type="submit" class="button large" value="Create Policy" />
+                    <input type="submit" class="button large" value="Create Driver" />
                 </form>
             </div>
+            <c:choose>
+                <c:when test="${drivers != null}">
+                    <div class="large-6 columns">
+                        <form action="RequestHandler?task=create_vehicle" method="post">
+                            <label>Driver
+                                <select>
+                                    <c:forEach items="${drivers}" var="driver" >
+                                        <option val="${driver.licenseNumber}">${driver.firstName} ${driver.lastName}</option>
+                                    </c:forEach>
+                                </select>
+                            </label>
+                            <label>More Inputs
+                                <input name="policyName" type="text" />
+                            </label>
+                            <input type="submit" class="button large" value="Create Vehicle" />
+                        </form>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    
+                </c:otherwise>
+            </c:choose>
+        </div>
+        <div class="row">
+        <c:choose>
+            <c:when test="${drivers != null}">
+                <div class="large-6 columns">
+                    <form action="RequestHandler?task=create_policy" method="post">
+                        <label>Vehicles
+                            <select>
+                                <c:forEach items="${vehicles}" var="vehicle" >
+                                    <option val="${vehicle.vin}">${vehicle.make} ${vehicle.model}</option>
+                                </c:forEach>
+                            </select>
+                        </label>
+                        <label>More Inputs
+                            <input name="policyName" type="text" />
+                        </label>
+                        <input type="submit" class="button large" value="Create Policy" />
+                    </form>
+                </div>
+            </c:when>
+            <c:otherwise>
+
+            </c:otherwise>
+        </c:choose>
         </div>
     </body>
 </html>

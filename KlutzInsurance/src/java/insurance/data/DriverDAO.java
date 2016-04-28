@@ -69,7 +69,7 @@ public class DriverDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectDrivers();"; //question mark is a placeholder
+            String queryString = "call sp_selectDrivers();"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             ResultSet resultSet = callableStatement.executeQuery();
@@ -80,7 +80,7 @@ public class DriverDAO {
                 driver.setLicenseNumber(resultSet.getString(1));
                 driver.setFirstName(resultSet.getString(2));
                 driver.setLastName(resultSet.getString(3));
-                driver.setUsage(VehicleUsage.valueOf(resultSet.getString(4)));
+                //driver.setUsage(VehicleUsage.valueOf(resultSet.getString(4)));
                 drivers.add(driver);
             } 
         } catch (SQLException ex) {

@@ -423,6 +423,7 @@ BEGIN
   WHERE UserName = userName;
 END $$
 DELIMITER 
+
 /******************************************************************************
 	STORED PROCEDURE: driver
 ******************************************************************************/
@@ -432,6 +433,14 @@ CREATE PROCEDURE sp_selectDriverByLicencseNumber
 BEGIN
   SELECT * FROM driver
   WHERE LicenseNumber = licenseNumber;
+END $$
+DELIMITER 
+
+DELIMITER $$
+CREATE PROCEDURE sp_selectDrivers
+()
+BEGIN
+  SELECT * FROM driver;
 END $$
 DELIMITER 
 /******************************************************************************

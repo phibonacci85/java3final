@@ -9,6 +9,7 @@ import insurance.data.*;
 import insurance.model.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -103,9 +104,23 @@ public class RequestHandler extends HttpServlet {
                 }
                 break;
             case "start_policy":
-                nextLocation = "/start_policy.jsp";
+                if(curUser == null) {
+                    nextLocation = "/index.jsp";
+                } else {
+                    try{
+                        List<Driver> drivers = DriverDAO.getDrivers();
+                        List<Vehicle> vehicles = VehicleDAO.getUserVehicles(curUser.getUsername());
+                        if(null != drivers && drivers.size() > 0)
+                            request.setAttribute("drivers", drivers);
+                        if(null != vehicles && vehicles.size() > 0)
+                            request.setAttribute("vehicles", vehicles);
+                    } catch(ClassNotFoundException e) {
+                        // failed to load resources
+                    }
+                    nextLocation = "/start_policy.jsp";
+                }
                 break;
-            case "create_policy":
+            case "create_driver":
                 if(curUser == null) {
                     nextLocation = "/index.jsp";
                 } else {
@@ -115,7 +130,18 @@ public class RequestHandler extends HttpServlet {
                     driver.setLastName("Wayne");
                     driver.setAge(35);
                     driver.setUsage(VehicleUsage.PLEASURE);
-                    
+                    try {
+                        DriverDAO.createDriver(driver);
+                    } catch (ClassNotFoundException e) {
+                        // couldn't create the policy
+                    }
+                    nextLocation = "/start_policy.jsp";
+                }
+                break;
+            case "create_vehicle":
+                if(curUser == null) {
+                    nextLocation = "/index.jsp";
+                } else {
                     Vehicle vehicle = new Vehicle();
                     vehicle.setVin("ABC1234");
                     vehicle.setLiscenseNumber("339XX1234");
@@ -124,17 +150,25 @@ public class RequestHandler extends HttpServlet {
                     vehicle.setYear(2002);
                     vehicle.setTotalMileage(100000);
                     vehicle.setAnnualMileage(20000);
-                    
+                    try {
+                        VehicleDAO.createVehicle(vehicle);
+                    } catch (ClassNotFoundException e) {
+                        // couldn't create the policy
+                    }
+                    nextLocation = "/start_policy.jsp";
+                }
+                break;
+            case "create_policy":
+                if(curUser == null) {
+                    nextLocation = "/index.jsp";
+                } else {
                     Policy policy = new Policy();
                     policy.setUsername(curUser.getUsername());
                     policy.setName("Decent Coverage");
                     policy.setRate(1201.1);
                     policy.setVin("ABC1234");
                     
-                    
                     try {
-                        DriverDAO.createDriver(driver);
-                        VehicleDAO.createVehicle(vehicle);
                         PolicyDAO.createPolicy(policy);
                     } catch (ClassNotFoundException e) {
                         // couldn't create the policy
