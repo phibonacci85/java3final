@@ -23,7 +23,7 @@ public class SuspensionDAO {
     private static List<Suspension> suspensions = new ArrayList<Suspension>();
     private static Suspension suspension = new Suspension();
     
-    public static Suspension getSuspensionsBySuspensionId(int suspensionId)
+    public static Suspension getSuspensionBySuspensionId(int suspensionId)
         throws ClassNotFoundException{
         suspensions = new ArrayList<>();
          //All connections go through DBConnection.getConnection();

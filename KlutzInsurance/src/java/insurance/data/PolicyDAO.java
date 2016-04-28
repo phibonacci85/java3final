@@ -30,7 +30,7 @@ public class PolicyDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "call sp_selectPoliciesByPolicyId(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectPolicyByPolicyId(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             int id = policyId;
             
