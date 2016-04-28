@@ -5,7 +5,6 @@
  */
 package insurance.data;
 
-import insurance.model.Accident;
 import insurance.model.Agent;
 import java.sql.CallableStatement;
 import java.sql.Connection;
