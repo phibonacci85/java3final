@@ -6,9 +6,6 @@
 
 package insurance.model;
 
-import insurance.data.AccidentDAO;
-import insurance.data.DriverDAO;
-import insurance.data.VehicleDAO;
 import java.util.Date;
 
 /**

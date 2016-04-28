@@ -6,8 +6,6 @@
 
 package insurance.model;
 
-import java.util.List;
-
 /**
  *
  * @author nh228u27
