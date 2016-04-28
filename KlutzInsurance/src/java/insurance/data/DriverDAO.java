@@ -45,6 +45,7 @@ public class DriverDAO {
                 driver.setLastName(resultSet.getString(3));
                 driver.setUsage(VehicleUsage.valueOf(resultSet.getString(4)));
                 driver.setDOB(resultSet.getDate(5));
+                driver.setUsername(resultSet.getString(6));
             } 
         } catch (SQLException ex) {
             System.out.println("Technical Difficulties... ");
@@ -81,7 +82,9 @@ public class DriverDAO {
                 driver.setLicenseNumber(resultSet.getString(1));
                 driver.setFirstName(resultSet.getString(2));
                 driver.setLastName(resultSet.getString(3));
-                //driver.setUsage(VehicleUsage.valueOf(resultSet.getString(4)));
+                driver.setUsage(VehicleUsage.valueOf(resultSet.getString(4)));
+                driver.setDOB(resultSet.getDate(5));
+                driver.setUsername(resultSet.getString(6));
                 drivers.add(driver);
             } 
         } catch (SQLException ex) {
@@ -122,6 +125,50 @@ public class DriverDAO {
                 driver.setFirstName(resultSet.getString(2));
                 driver.setLastName(resultSet.getString(3));
                 driver.setUsage(VehicleUsage.valueOf(resultSet.getString(4)));
+                driver.setDOB(resultSet.getDate(5));
+                driver.setUsername(resultSet.getString(6));
+                drivers.add(driver);
+            } 
+        } catch (SQLException ex) {
+            System.out.println("Technical Difficulties... ");
+            System.err.println(ex.getMessage());
+        }finally {
+            try {
+                if(conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("Technical Difficulties");
+                System.err.println(ex.getMessage());
+            }
+        }
+        return drivers;
+    }
+    
+    public static List<Driver> getUserDrivers(String username)
+        throws ClassNotFoundException{
+        drivers = new ArrayList<>();
+         //All connections go through DBConnection.getConnection();
+        Connection conn = null;
+        
+        try {
+            conn = DBConnection.getConnection();
+            String queryString = "call sp_selectDriversByVin(?);"; //question mark is a placeholder
+            CallableStatement callableStatement = conn.prepareCall(queryString);
+            String id = username;
+            
+            callableStatement.setString(1, id);
+            ResultSet resultSet = callableStatement.executeQuery();
+                    
+            //set employee object to the result set from the query
+            while(resultSet.next()) {
+                Driver driver = new Driver();
+                driver.setLicenseNumber(resultSet.getString(1));
+                driver.setFirstName(resultSet.getString(2));
+                driver.setLastName(resultSet.getString(3));
+                driver.setUsage(VehicleUsage.valueOf(resultSet.getString(4)));
+                driver.setDOB(resultSet.getDate(5));
+                driver.setUsername(resultSet.getString(6));
                 drivers.add(driver);
             } 
         } catch (SQLException ex) {
@@ -156,6 +203,7 @@ public class DriverDAO {
             callableStatement.setString(3, driver.getLastName());
             callableStatement.setString(4, driver.getUsage().toString());
             callableStatement.setDate(5, (java.sql.Date) driver.getDOB());
+            callableStatement.setString(6, driver.getUsername());
             
             if(!callableStatement.execute()) {
                 int updateCount = callableStatement.getUpdateCount();

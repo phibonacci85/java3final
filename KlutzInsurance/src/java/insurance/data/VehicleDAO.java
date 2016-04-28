@@ -46,6 +46,7 @@ public class VehicleDAO {
                 vehicle.setModel(resultSet.getString(5));
                 vehicle.setTotalMileage(resultSet.getInt(6));
                 vehicle.setAnnualMileage(resultSet.getInt(7));
+                vehicle.setUsername(resultSet.getString(8));
             } 
         } catch (SQLException ex) {
             System.out.println("Technical Difficulties... ");
@@ -87,6 +88,7 @@ public class VehicleDAO {
                 vehicle.setModel(resultSet.getString(5));
                 vehicle.setTotalMileage(resultSet.getInt(6));
                 vehicle.setAnnualMileage(resultSet.getInt(7));
+                vehicle.setUsername(resultSet.getString(8));
                 vehicles.add(vehicle);
             } 
         } catch (SQLException ex) {
@@ -131,6 +133,7 @@ public class VehicleDAO {
                 vehicle.setModel(resultSet.getString(5));
                 vehicle.setTotalMileage(resultSet.getInt(6));
                 vehicle.setAnnualMileage(resultSet.getInt(7));
+                vehicle.setUsername(resultSet.getString(8));
                 vehicles.add(vehicle);
             } 
         } catch (SQLException ex) {
@@ -158,7 +161,7 @@ public class VehicleDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "call sp_insertVehicle(?,?,?,?,?,?,?);"; //question mark is a placeholder
+            String queryString = "call sp_insertVehicle(?,?,?,?,?,?,?,?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             callableStatement.setString(1, vehicle.getLicenseNumber());
@@ -168,6 +171,7 @@ public class VehicleDAO {
             callableStatement.setString(5, vehicle.getModel());
             callableStatement.setInt(6, vehicle.getTotalMileage());
             callableStatement.setInt(7, vehicle.getAnnualMileage());
+            callableStatement.setString(8, vehicle.getUsername());
             
             if(!callableStatement.execute()) {
                 int updateCount = callableStatement.getUpdateCount();

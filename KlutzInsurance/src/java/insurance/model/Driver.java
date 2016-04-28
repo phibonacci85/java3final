@@ -20,6 +20,7 @@ public class Driver {
     private String lastName;
     private VehicleUsage usage;
     private Date DOB;
+    private String username;
     
     private List<Accident> accidents = new ArrayList<>();
     private List<Vehicle> vehicles = new ArrayList<>();
@@ -167,5 +168,19 @@ public class Driver {
      */
     public void setDOB(Date DOB) {
         this.DOB = DOB;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

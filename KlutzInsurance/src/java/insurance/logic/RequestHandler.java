@@ -199,7 +199,7 @@ public class RequestHandler extends HttpServlet {
                     try {
                         DriverDAO.createDriver(driver);
                         
-                        List<Driver> drivers = DriverDAO.getUserDrivers(curUser.getUsername();
+                        List<Driver> drivers = DriverDAO.getUserDrivers(curUser.getUsername());
                         List<Vehicle> vehicles = VehicleDAO.getUserVehicles(curUser.getUsername());
                         if(null != drivers && drivers.size() > 0)
                             request.setAttribute("drivers", drivers);

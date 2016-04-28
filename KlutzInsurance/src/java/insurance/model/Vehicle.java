@@ -18,6 +18,7 @@ public class Vehicle {
     private int year;
     private int totalMileage;
     private int annualMileage;
+    private String username;
     
     public Vehicle() { }
 
@@ -117,5 +118,19 @@ public class Vehicle {
      */
     public void setLicenseNumber(String licenseNumber) {
         this.licenseNumber = licenseNumber;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
