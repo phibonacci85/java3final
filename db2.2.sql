@@ -228,9 +228,9 @@ DELIMITER;
 
 DELIMITER $$
 CREATE PROCEDURE sp_selectUserByUsername(
-	IN UserName VARCHAR(20))
+	IN UserNameP VARCHAR(20))
 BEGIN
 	SELECT *
     FROM Users
-    WHERE UserName = UserName;
+    WHERE UserName = UserNameP;
 END $$
