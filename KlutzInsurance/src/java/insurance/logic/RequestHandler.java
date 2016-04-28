@@ -105,6 +105,36 @@ public class RequestHandler extends HttpServlet {
             case "start_policy":
                 nextLocation = "/start_policy.jsp";
                 break;
+            case "create_policy":
+                if(curUser == null) {
+                    nextLocation = "/index.jsp";
+                } else {
+                    Driver driver = new Driver();
+                    driver.setLicenseNumber("339XX1234");
+                    driver.setFirstName("Bruce");
+                    driver.setLastName("Wayne");
+                    
+                    Vehicle vehicle = new Vehicle();
+                    vehicle.setLiscenseNumber("339XX1234");
+                    vehicle.setVin("ABC1234");
+                    
+                    Policy policy = new Policy();
+                    policy.setUsername(curUser.getUsername());
+                    policy.setName("Decent Coverage");
+                    policy.setRate(1201.1);
+                    policy.setVin("ABC1234");
+                    
+                    
+                    try {
+                        DriverDAO.createDriver(driver);
+                        VehicleDAO.createVehicle(vehicle);
+                        PolicyDAO.createPolicy(policy);
+                    } catch (ClassNotFoundException e) {
+                        // couldn't create the policy
+                    }
+                    nextLocation = "/index.jsp";
+                }
+                break;
             default:
                 nextLocation = "/index.jsp";
         }

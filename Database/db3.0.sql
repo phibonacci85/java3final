@@ -183,7 +183,7 @@ CREATE TABLE Accident (
 ******************************************************************************/
 
 CREATE TABLE Policy (
-	Policy_id	VARCHAR(40) NOT NULL,
+	Policy_id int NOT NULL AUTO_INCREMENT,
     UserName VARCHAR(20) NOT NULL,
     Vin VARCHAR(40) NOT NULL,
     Name VARCHAR(20) NULL,
@@ -297,14 +297,13 @@ DELIMITER
 ******************************************************************************/
 DELIMITER $$
 Create Procedure sp_insertPolicy(
-IN Policy_id VARCHAR(20),
 IN UserName VARCHAR(20), 
 IN Vin VARCHAR(40), 
 IN Name VARCHAR(20), 
 IN Rate DOUBLE )
 BEGIN
-INSERT INTO policy (Policy_id,UserName,Vin,Name,Rate) 
-VALUES (Policy_id,UserName,Vin,Name,Rate);
+INSERT INTO policy (UserName,Vin,Name,Rate) 
+VALUES (UserName,Vin,Name,Rate);
 END$$
 DELIMITER 
 

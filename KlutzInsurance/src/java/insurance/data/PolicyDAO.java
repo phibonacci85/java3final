@@ -32,7 +32,7 @@ public class PolicyDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectPoliciesByUsername(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectPoliciesByUsername(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             String id = username;
             
@@ -72,7 +72,7 @@ public class PolicyDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_insertDriver(?,?,?,?);"; //question mark is a placeholder
+            String queryString = "call sp_insertPolicy(?,?,?,?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             callableStatement.setString(1, policy.getUsername());
@@ -80,7 +80,12 @@ public class PolicyDAO {
             callableStatement.setString(3, policy.getName());
             callableStatement.setDouble(4, policy.getRate());
             
-            succeeded = callableStatement.execute();
+            if(!callableStatement.execute()) {
+                int updateCount = callableStatement.getUpdateCount();
+                if(updateCount == 1) {
+                    succeeded = true;
+                }
+            }
             
         } catch (SQLException ex) {
             System.out.println("Technical Difficulties... ");

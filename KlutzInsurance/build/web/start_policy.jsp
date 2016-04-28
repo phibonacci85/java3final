@@ -14,6 +14,22 @@
     </head>
     <body>
         <jsp:include page="/includes/top_bar.jsp" />
-        <h1>Start Policy</h1>
+        <h1 class="text-center">Start Policy</h1>
+        <div class="row">
+            <div class="large-6 columns">
+                <form action="RequestHandler?task=create_policy" method="post">
+                    <label>Name
+                        <input name="policyName" type="text" />
+                    </label>
+                    <label>Rate
+                        <input name="policyRate" type="number" min="0" value="0"/>
+                    </label>
+                    <label>Vin
+                        <input name="policyVin" type="text" />
+                    </label>
+                    <input type="submit" class="button large" value="Create Policy" />
+                </form>
+            </div>
+        </div>
     </body>
 </html>

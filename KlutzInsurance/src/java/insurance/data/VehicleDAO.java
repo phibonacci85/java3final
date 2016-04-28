@@ -79,7 +79,7 @@ public class VehicleDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_insertVehicle(?,?,?,?,?,?,?);"; //question mark is a placeholder
+            String queryString = "call sp_insertVehicle(?,?,?,?,?,?,?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             callableStatement.setString(1, vehicle.getVin());
@@ -90,7 +90,12 @@ public class VehicleDAO {
             callableStatement.setInt(6, vehicle.getTotalMileage());
             callableStatement.setInt(7, vehicle.getAnnualMileage());
             
-            succeeded = callableStatement.execute();
+            if(!callableStatement.execute()) {
+                int updateCount = callableStatement.getUpdateCount();
+                if(updateCount == 1) {
+                    succeeded = true;
+                }
+            }
             
         } catch (SQLException ex) {
             System.out.println("Technical Difficulties... ");
