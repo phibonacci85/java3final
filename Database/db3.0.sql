@@ -477,10 +477,10 @@ DELIMITER
 ******************************************************************************/
 DELIMITER $$
 CREATE PROCEDURE sp_selectPoliciesByUserName
-(IN UserName VARCHAR(20))
+(IN UserNameP VARCHAR(20))
 BEGIN
   SELECT * FROM policy
-  WHERE UserName = UserName;
+  WHERE UserName = UserNameP;
 END $$
 DELIMITER 
 

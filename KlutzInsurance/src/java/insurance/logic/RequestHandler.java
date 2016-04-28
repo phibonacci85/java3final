@@ -95,11 +95,13 @@ public class RequestHandler extends HttpServlet {
                     try {
                         List<Driver> drivers = DriverDAO.getDrivers();
                         List<Vehicle> vehicles = VehicleDAO.getUserVehicles(curUser.getUsername());
-                        List<Policy> policies = PolicyDAO.getPolicies();
+                        List<Policy> policies = PolicyDAO.getUserPolicies(curUser.getUsername());
                         if(null != drivers && drivers.size() > 0)
                             request.setAttribute("drivers", drivers);
                         if(null != vehicles && vehicles.size() > 0)
                             request.setAttribute("vehicles", vehicles);
+                        if(null != policies && policies.size() > 0)
+                            request.setAttribute("policies", policies);
                     } catch (ClassNotFoundException e) {
                         //
                     }
