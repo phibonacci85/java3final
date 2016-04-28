@@ -215,3 +215,22 @@ CREATE TABLE AccidentDriver (
         REFERENCES Vehicle (Vin)
     
 );
+
+DELIMITER $$
+CREATE PROCEDURE sp_insertUsername(
+	IN UserName VARCHAR(20), 
+	IN PASSWORD VARCHAR(20))
+BEGIN
+	INSERT INTO Users(UserName,Password)
+	VALUES (UserName,Password);
+END $$
+DELIMITER;
+
+DELIMITER $$
+CREATE PROCEDURE sp_selectUserByUsername(
+	IN UserName VARCHAR(20))
+BEGIN
+	SELECT *
+    FROM Users
+    WHERE UserName = UserName;
+END $$
