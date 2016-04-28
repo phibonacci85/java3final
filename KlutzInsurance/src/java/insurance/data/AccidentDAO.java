@@ -32,7 +32,7 @@ public class AccidentDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectAccidentsByDriverId(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectAccidentsByDriverId(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             int id = accidentId;
             
@@ -72,7 +72,7 @@ public class AccidentDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectAccidents();"; //question mark is a placeholder
+            String queryString = "call sp_selectAccidents();"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             ResultSet resultSet = callableStatement.executeQuery();
@@ -112,7 +112,7 @@ public class AccidentDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectAccidentsByDriverId(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectAccidentsByDriverId(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             int id = driverId;
             
@@ -154,7 +154,7 @@ public class AccidentDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_insertAccident(?,?,?,?,?);"; //question mark is a placeholder
+            String queryString = "call sp_insertAccident(?,?,?,?,?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             callableStatement.setString(1, accident.getLiscenseNumber());
@@ -163,7 +163,12 @@ public class AccidentDAO {
             callableStatement.setDate(4, (java.sql.Date) accident.getDate());
             callableStatement.setBoolean(5, accident.isAtFault());
             
-            succeeded = callableStatement.execute();
+            if(!callableStatement.execute()) {
+                int updateCount = callableStatement.getUpdateCount();
+                if(updateCount == 1) {
+                    succeeded = true;
+                }
+            }
             
         } catch (SQLException ex) {
             System.out.println("Technical Difficulties... ");

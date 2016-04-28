@@ -31,7 +31,7 @@ public class SuspensionDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectSuspensionBySuspensionId(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectSuspensionBySuspensionId(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             int id = suspensionId;
             
@@ -70,7 +70,7 @@ public class SuspensionDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectSuspensions();"; //question mark is a placeholder
+            String queryString = "call sp_selectSuspensions();"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             ResultSet resultSet = callableStatement.executeQuery();
@@ -109,7 +109,7 @@ public class SuspensionDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectSuspensionsByUsername(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectSuspensionsByUsername(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             String id = username;
             
@@ -150,7 +150,7 @@ public class SuspensionDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_insertSuspension(?,?,?,?);"; //question mark is a placeholder
+            String queryString = "call sp_insertSuspension(?,?,?,?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             callableStatement.setString(1, suspension.getLiscenseNumber());

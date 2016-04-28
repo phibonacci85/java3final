@@ -7,8 +7,8 @@
 package insurance.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import static oracle.jrockit.jfr.tools.ConCatRepository.usage;
 
 /**
  *
@@ -19,7 +19,7 @@ public class Driver {
     private String firstName;
     private String lastName;
     private VehicleUsage usage;
-    private int age;
+    private Date DOB;
     
     private List<Accident> accidents = new ArrayList<>();
     private List<Vehicle> vehicles = new ArrayList<>();
@@ -156,16 +156,16 @@ public class Driver {
     }
 
     /**
-     * @return the age
+     * @return the DOB
      */
-    public int getAge() {
-        return age;
+    public Date getDOB() {
+        return DOB;
     }
 
     /**
-     * @param age the age to set
+     * @param DOB the DOB to set
      */
-    public void setAge(int age) {
-        this.age = age;
+    public void setDOB(Date DOB) {
+        this.DOB = DOB;
     }
 }

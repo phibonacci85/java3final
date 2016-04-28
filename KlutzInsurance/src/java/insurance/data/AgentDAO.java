@@ -30,7 +30,7 @@ public class AgentDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectAgentByUsername(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectAgentByUsername(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             String id = username;
             
@@ -71,7 +71,7 @@ public class AgentDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectAgents();"; //question mark is a placeholder
+            String queryString = "call sp_selectAgents();"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             ResultSet resultSet = callableStatement.executeQuery();
@@ -112,7 +112,7 @@ public class AgentDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_insertAgent(?,?,?,?,?,?);"; //question mark is a placeholder
+            String queryString = "call sp_insertAgent(?,?,?,?,?,?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             callableStatement.setString(1, agent.getUsername());
@@ -122,7 +122,12 @@ public class AgentDAO {
             callableStatement.setInt(5, agent.getPhone());
             callableStatement.setString(6, agent.getPayGrade());
             
-            succeeded = callableStatement.execute();
+            if(!callableStatement.execute()) {
+                int updateCount = callableStatement.getUpdateCount();
+                if(updateCount == 1) {
+                    succeeded = true;
+                }
+            }
             
         } catch (SQLException ex) {
             System.out.println("Technical Difficulties... ");

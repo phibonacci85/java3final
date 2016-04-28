@@ -31,7 +31,7 @@ public class ViolationDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectViolationsByViolationId(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectViolationsByViolationId(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             String id = violationId;
             
@@ -70,7 +70,7 @@ public class ViolationDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectViolations();"; //question mark is a placeholder
+            String queryString = "call sp_selectViolations();"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             ResultSet resultSet = callableStatement.executeQuery();
@@ -109,7 +109,7 @@ public class ViolationDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectViolationsByLiscenseNumber(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectViolationsByLiscenseNumber(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             String id = liscenseNumber;
             
@@ -150,7 +150,7 @@ public class ViolationDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_insertViolation(?,?,?,?);"; //question mark is a placeholder
+            String queryString = "call sp_insertViolation(?,?,?,?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             callableStatement.setString(1, violation.getLiscenseNumber());
@@ -158,7 +158,12 @@ public class ViolationDAO {
             callableStatement.setDate(3, (java.sql.Date) violation.getDateOccured());
             callableStatement.setDate(4, (java.sql.Date) violation.getConvictionDate());
             
-            succeeded = callableStatement.execute();
+            if(!callableStatement.execute()) {
+                int updateCount = callableStatement.getUpdateCount();
+                if(updateCount == 1) {
+                    succeeded = true;
+                }
+            }
             
         } catch (SQLException ex) {
             System.out.println("Technical Difficulties... ");

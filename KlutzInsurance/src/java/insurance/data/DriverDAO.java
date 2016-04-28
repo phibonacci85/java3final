@@ -31,7 +31,7 @@ public class DriverDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectDriversByLiscenseNumber(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectDriversByLiscenseNumber(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             String id = liscenseNumber;
             
@@ -44,6 +44,7 @@ public class DriverDAO {
                 driver.setFirstName(resultSet.getString(2));
                 driver.setLastName(resultSet.getString(3));
                 driver.setUsage(VehicleUsage.valueOf(resultSet.getString(4)));
+                driver.setDOB(resultSet.getDate(5));
             } 
         } catch (SQLException ex) {
             System.out.println("Technical Difficulties... ");
@@ -107,7 +108,7 @@ public class DriverDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectDriversByVin(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectDriversByVin(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             int id = vehicleId;
             
@@ -153,7 +154,7 @@ public class DriverDAO {
             callableStatement.setString(1, driver.getLicenseNumber());
             callableStatement.setString(2, driver.getFirstName());
             callableStatement.setString(3, driver.getLastName());
-            callableStatement.setInt(4, driver.getAge());
+            callableStatement.setDate(4, (java.sql.Date) driver.getDOB());
             callableStatement.setString(5, driver.getUsage().toString());
             
             if(!callableStatement.execute()) {

@@ -35,7 +35,7 @@ public class CoverageDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectCoveragesByUsername(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectCoveragesByUsername(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             int id = coverageId;
             
@@ -44,11 +44,12 @@ public class CoverageDAO {
                     
             //set employee object to the result set from the query
             while(resultSet.next()) {
-                coverage.setUsername(resultSet.getString(1));
-                coverage.setType(CoverageType.valueOf(resultSet.getString(2)));
-                coverage.setBiStateMinimum(resultSet.getString(3));
-                coverage.setPdStateMinimum(resultSet.getInt(4));
-                coverage.setDeductibleOption(DeductibleOption.valueOf(resultSet.getString(5)));
+                coverage.setCoverageId(resultSet.getInt(1));
+                coverage.setUsername(resultSet.getString(2));
+                coverage.setType(CoverageType.valueOf(resultSet.getString(3)));
+                coverage.setBiStateMinimum(resultSet.getString(4));
+                coverage.setPdStateMinimum(resultSet.getInt(5));
+                coverage.setDeductibleOption(DeductibleOption.valueOf(resultSet.getString(6)));
             } 
         } catch (SQLException ex) {
             System.out.println("Technical Difficulties... ");
@@ -74,7 +75,7 @@ public class CoverageDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectCoveragesByUsername(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectCoveragesByUsername(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             ResultSet resultSet = callableStatement.executeQuery();
@@ -82,11 +83,12 @@ public class CoverageDAO {
             //set employee object to the result set from the query
             while(resultSet.next()) {
                 Coverage coverage = new Coverage();
-                coverage.setUsername(resultSet.getString(1));
-                coverage.setType(CoverageType.valueOf(resultSet.getString(2)));
-                coverage.setBiStateMinimum(resultSet.getString(3));
-                coverage.setPdStateMinimum(resultSet.getInt(4));
-                coverage.setDeductibleOption(DeductibleOption.valueOf(resultSet.getString(5)));
+                coverage.setCoverageId(resultSet.getInt(1));
+                coverage.setUsername(resultSet.getString(2));
+                coverage.setType(CoverageType.valueOf(resultSet.getString(3)));
+                coverage.setBiStateMinimum(resultSet.getString(4));
+                coverage.setPdStateMinimum(resultSet.getInt(5));
+                coverage.setDeductibleOption(DeductibleOption.valueOf(resultSet.getString(6)));
                 coverages.add(coverage);
             } 
         } catch (SQLException ex) {
@@ -113,7 +115,7 @@ public class CoverageDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectCoveragesByUsername(?);"; //question mark is a placeholder
+            String queryString = "call sp_selectCoveragesByUsername(?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             String id = username;
             
@@ -123,11 +125,12 @@ public class CoverageDAO {
             //set employee object to the result set from the query
             while(resultSet.next()) {
                 Coverage coverage = new Coverage();
-                coverage.setUsername(resultSet.getString(1));
-                coverage.setType(CoverageType.valueOf(resultSet.getString(2)));
-                coverage.setBiStateMinimum(resultSet.getString(3));
-                coverage.setPdStateMinimum(resultSet.getInt(4));
-                coverage.setDeductibleOption(DeductibleOption.valueOf(resultSet.getString(5)));
+                coverage.setCoverageId(resultSet.getInt(1));
+                coverage.setUsername(resultSet.getString(2));
+                coverage.setType(CoverageType.valueOf(resultSet.getString(3)));
+                coverage.setBiStateMinimum(resultSet.getString(4));
+                coverage.setPdStateMinimum(resultSet.getInt(5));
+                coverage.setDeductibleOption(DeductibleOption.valueOf(resultSet.getString(6)));
                 coverages.add(coverage);
             } 
         } catch (SQLException ex) {
@@ -154,17 +157,23 @@ public class CoverageDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_insertCoverage(?,?,?,?,?,?);"; //question mark is a placeholder
+            String queryString = "call sp_insertCoverage(?,?,?,?,?,?,?);"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
-            callableStatement.setString(1, coverage.getUsername());
-            callableStatement.setString(2, coverage.getType().toString());
-            callableStatement.setString(3, coverage.getBiStateMinimum());
-            callableStatement.setInt(4, coverage.getPdStateMinimum());
-            callableStatement.setString(5, coverage.getDeductibleOption().toString());
-            callableStatement.setInt(6, coverage.getMedPay());
+            callableStatement.setInt(1, coverage.getCoverageId());
+            callableStatement.setString(2, coverage.getUsername());
+            callableStatement.setString(3, coverage.getType().toString());
+            callableStatement.setString(4, coverage.getBiStateMinimum());
+            callableStatement.setInt(5, coverage.getPdStateMinimum());
+            callableStatement.setString(6, coverage.getDeductibleOption().toString());
+            callableStatement.setInt(7, coverage.getMedPay());
             
-            succeeded = callableStatement.execute();
+            if(!callableStatement.execute()) {
+                int updateCount = callableStatement.getUpdateCount();
+                if(updateCount == 1) {
+                    succeeded = true;
+                }
+            }
             
         } catch (SQLException ex) {
             System.out.println("Technical Difficulties... ");

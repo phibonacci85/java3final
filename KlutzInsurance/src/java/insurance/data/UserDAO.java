@@ -30,7 +30,7 @@ public class UserDAO {
         
         try {
             conn = DBConnection.getConnection();
-            String queryString = "sp_selectUsers();"; //question mark is a placeholder
+            String queryString = "call sp_selectUsers();"; //question mark is a placeholder
             CallableStatement callableStatement = conn.prepareCall(queryString);
             
             ResultSet resultSet = callableStatement.executeQuery();
