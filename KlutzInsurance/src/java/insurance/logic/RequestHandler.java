@@ -93,7 +93,7 @@ public class RequestHandler extends HttpServlet {
                     nextLocation = "/index.jsp";
                 } else {
                     try {
-                        List<Driver> drivers = DriverDAO.getDrivers();
+                        List<Driver> drivers = DriverDAO.getUserDrivers(curUser.getUsername());
                         List<Vehicle> vehicles = VehicleDAO.getUserVehicles(curUser.getUsername());
                         List<Policy> policies = PolicyDAO.getUserPolicies(curUser.getUsername());
                         if(null != drivers && drivers.size() > 0)
@@ -108,13 +108,53 @@ public class RequestHandler extends HttpServlet {
                     nextLocation = "/browse_policies.jsp";
                 }
                 break;
+            case "browse_vehicles":
+                if(curUser == null) {
+                    nextLocation = "/index.jsp";
+                } else {
+                    try {
+                        List<Driver> drivers = DriverDAO.getUserDrivers(curUser.getUsername());
+                        List<Vehicle> vehicles = VehicleDAO.getUserVehicles(curUser.getUsername());
+                        List<Policy> policies = PolicyDAO.getUserPolicies(curUser.getUsername());
+                        if(null != drivers && drivers.size() > 0)
+                            request.setAttribute("drivers", drivers);
+                        if(null != vehicles && vehicles.size() > 0)
+                            request.setAttribute("vehicles", vehicles);
+                        if(null != policies && policies.size() > 0)
+                            request.setAttribute("policies", policies);
+                    } catch (ClassNotFoundException e) {
+                        //
+                    }
+                    nextLocation = "/browse_vehicles.jsp";
+                }
+                break;
+            case "browse_drivers":
+                if(curUser == null) {
+                    nextLocation = "/index.jsp";
+                } else {
+                    try {
+                        List<Driver> drivers = DriverDAO.getUserDrivers(curUser.getUsername());
+                        List<Vehicle> vehicles = VehicleDAO.getUserVehicles(curUser.getUsername());
+                        List<Policy> policies = PolicyDAO.getUserPolicies(curUser.getUsername());
+                        if(null != drivers && drivers.size() > 0)
+                            request.setAttribute("drivers", drivers);
+                        if(null != vehicles && vehicles.size() > 0)
+                            request.setAttribute("vehicles", vehicles);
+                        if(null != policies && policies.size() > 0)
+                            request.setAttribute("policies", policies);
+                    } catch (ClassNotFoundException e) {
+                        //
+                    }
+                    nextLocation = "/browse_drivers.jsp";
+                }
+                break;
             case "start_policy":
                 if(curUser == null) {
                     nextLocation = "/index.jsp";
                 } else {
                     try{
-                        List<Driver> drivers = DriverDAO.getDrivers();
-                        List<Vehicle> vehicles = VehicleDAO.getVehicles();
+                        List<Driver> drivers = DriverDAO.getUserDrivers(curUser.getUsername());
+                        List<Vehicle> vehicles = VehicleDAO.getUserVehicles(curUser.getUsername());
                         if(null != drivers && drivers.size() > 0)
                             request.setAttribute("drivers", drivers);
                         if(null != vehicles && vehicles.size() > 0)
@@ -159,8 +199,8 @@ public class RequestHandler extends HttpServlet {
                     try {
                         DriverDAO.createDriver(driver);
                         
-                        List<Driver> drivers = DriverDAO.getDrivers();
-                        List<Vehicle> vehicles = VehicleDAO.getVehicles();
+                        List<Driver> drivers = DriverDAO.getUserDrivers(curUser.getUsername();
+                        List<Vehicle> vehicles = VehicleDAO.getUserVehicles(curUser.getUsername());
                         if(null != drivers && drivers.size() > 0)
                             request.setAttribute("drivers", drivers);
                         if(null != vehicles && vehicles.size() > 0)
@@ -194,8 +234,8 @@ public class RequestHandler extends HttpServlet {
                     try {
                         VehicleDAO.createVehicle(vehicle);
                         
-                        List<Driver> drivers = DriverDAO.getDrivers();
-                        List<Vehicle> vehicles = VehicleDAO.getVehicles();
+                        List<Driver> drivers = DriverDAO.getUserDrivers(curUser.getUsername());
+                        List<Vehicle> vehicles = VehicleDAO.getUserVehicles(curUser.getUsername());
                         if(null != drivers && drivers.size() > 0)
                             request.setAttribute("drivers", drivers);
                         if(null != vehicles && vehicles.size() > 0)
