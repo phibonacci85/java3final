@@ -5,6 +5,7 @@ insurance policies. Before running this script, you must deploy the
 Database, and add the necessary jar files to the netbeans project.
 
 Product Utilized:
+
 	- Java 1.8
 	- Netbeans 8.0
 	- Apache Tomcat
@@ -49,9 +50,3 @@ Jar Files:
 Documentation:
 
 	The documentation folder has our design documents for this project.
-
-	
-	
-
-
-	
